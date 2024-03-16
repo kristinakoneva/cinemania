@@ -9,9 +9,8 @@ import okhttp3.Response
 class MoviesApiKeyQueryInterceptor @Inject constructor() : Interceptors.MoviesApiKeyQuery {
     override fun intercept(chain: Interceptor.Chain): Response {
         var request = chain.request()
-        val requestUrlBuilder = request.url.newBuilder()
-        requestUrlBuilder.addQueryParameter(QUERY_NAME_API_KEY, BuildConfig.MOVIES_API_KEY)
-        request = request.newBuilder().url(requestUrlBuilder.build()).build()
+        val urlWithApiKeyQuery = request.url.newBuilder().addQueryParameter(QUERY_NAME_API_KEY, BuildConfig.MOVIES_API_KEY).build()
+        request = request.newBuilder().url(urlWithApiKeyQuery).build()
         return chain.proceed(request)
     }
 }

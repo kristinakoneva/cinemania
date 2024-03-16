@@ -1,3 +1,8 @@
 package mk.ukim.finki.cinemania.data.api
 
-interface MoviesApiSource
+import mk.ukim.finki.cinemania.data.api.models.MovieListResponse
+
+interface MoviesApiSource {
+
+    suspend fun fetchPopularMovieList(): MovieListResponse
+}
