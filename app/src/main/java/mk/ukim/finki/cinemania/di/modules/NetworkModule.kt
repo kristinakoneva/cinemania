@@ -30,9 +30,11 @@ class NetworkModule {
     @Singleton
     @MoviesApi
     fun moviesApiOkHttpClient(
-        apiKeyQueryInterceptor: Interceptors.MoviesApiKeyQuery
+        apiKeyQueryInterceptor: Interceptors.MoviesApiKeyQuery,
+        chuckerInterceptor: Interceptors.Chucker
     ): OkHttpClient = OkHttpClient.Builder().apply {
         addInterceptor(apiKeyQueryInterceptor)
+        addNetworkInterceptor(chuckerInterceptor)
     }.build()
 
     @Provides

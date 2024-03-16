@@ -12,4 +12,8 @@ class InterceptorsModule {
     @Provides
     @Singleton
     fun moviesApiKeyQueryInterceptor(interceptor: MoviesApiKeyQueryInterceptor): Interceptors.MoviesApiKeyQuery = interceptor
+
+    @Provides
+    @Singleton
+    fun chuckerInterceptor(interceptor: ChuckerInterceptor): Interceptors.Chucker = interceptor
 }

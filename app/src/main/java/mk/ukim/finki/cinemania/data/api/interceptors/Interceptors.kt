@@ -4,4 +4,6 @@ import okhttp3.Interceptor
 
 interface Interceptors {
     interface MoviesApiKeyQuery : Interceptor
+
+    interface Chucker : Interceptor
 }
