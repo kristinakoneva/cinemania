@@ -5,13 +5,15 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import mk.ukim.finki.cinemania.domain.movie.MovieRepository
 
 @HiltViewModel
-class MovieListViewModel @Inject constructor() : ViewModel() {
+class MovieListViewModel @Inject constructor(
+    private val movieRepository: MovieRepository
+) : ViewModel() {
 
     private val _stateFlow: MutableStateFlow<MovieListState?> = MutableStateFlow(null)
     val stateFlow: StateFlow<MovieListState?> = _stateFlow
@@ -22,9 +24,8 @@ class MovieListViewModel @Inject constructor() : ViewModel() {
     init {
         viewModelScope.launch(Dispatchers.IO) {
             _loadingStateFlow.value = true
-            // delaying for 2 seconds to simulate a network call
-            delay(2000L)
-            _stateFlow.value = MovieListState("Movie List", emptyList())
+            val movieList = movieRepository.fetchPopularMovieList()
+            _stateFlow.value = MovieListState(movieList.toString(), emptyList())
             _loadingStateFlow.value = false
         }
     }
