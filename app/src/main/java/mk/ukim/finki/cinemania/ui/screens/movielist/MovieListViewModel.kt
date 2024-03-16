@@ -25,7 +25,7 @@ class MovieListViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             _loadingStateFlow.value = true
             val movieList = movieRepository.fetchPopularMovieList()
-            _stateFlow.value = MovieListState(movieList.toString(), emptyList())
+            _stateFlow.value = MovieListState(movieList)
             _loadingStateFlow.value = false
         }
     }

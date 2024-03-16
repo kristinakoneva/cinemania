@@ -29,8 +29,16 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
     private lateinit var adapter: MovieAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initAdapter()
         super.onViewCreated(view, savedInstanceState)
         collectStateFlow()
+    }
+
+    private fun initAdapter() = with(binding) {
+        adapter = MovieAdapter(items = emptyList()) { movie ->
+            Toast.makeText(requireContext(), "Clicked on " + movie.title, Toast.LENGTH_SHORT).show()
+        }
+        moviesRecyclerView.adapter = adapter
     }
 
     private fun collectStateFlow() {
@@ -38,7 +46,7 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.stateFlow.collect { state ->
                     state?.let {
-                        // TODO
+                        adapter.submitList(state.movieList)
                     }
                 }
             }

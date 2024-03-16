@@ -1,7 +1,7 @@
 package mk.ukim.finki.cinemania.ui.screens.movielist
 
-// just for the sake of the example
+import mk.ukim.finki.cinemania.domain.models.Movie
+
 data class MovieListState(
-    val title: String,
-    val moviesList: List<String>
+    val movieList: List<Movie>
 )
