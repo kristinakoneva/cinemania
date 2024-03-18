@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 import mk.ukim.finki.cinemania.R
 import mk.ukim.finki.cinemania.databinding.FragmentMovieListBinding
 import mk.ukim.finki.cinemania.extensions.viewBinding
+import mk.ukim.finki.cinemania.ui.screens.adapters.MovieAdapter
 import mk.ukim.finki.cinemania.utils.Constants.LOADING_DIALOG_TAG
 import mk.ukim.finki.cinemania.ui.shared.LoadingDialog
 
@@ -25,16 +26,19 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
 
     private var loadingDialog: LoadingDialog? = null
 
+    private lateinit var adapter: MovieAdapter
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initAdapter()
         super.onViewCreated(view, savedInstanceState)
-        initListeners()
         collectStateFlow()
     }
 
-    private fun initListeners() = with(binding) {
-        button.setOnClickListener {
-            Toast.makeText(requireContext(), "Button clicked", Toast.LENGTH_SHORT).show()
+    private fun initAdapter() = with(binding) {
+        adapter = MovieAdapter(items = emptyList()) { movie ->
+            Toast.makeText(requireContext(), "Clicked on " + movie.title, Toast.LENGTH_SHORT).show()
         }
+        moviesRecyclerView.adapter = adapter
     }
 
     private fun collectStateFlow() {
@@ -42,7 +46,7 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.stateFlow.collect { state ->
                     state?.let {
-                        binding.title.text = it.title
+                        adapter.submitList(state.movieList)
                     }
                 }
             }
