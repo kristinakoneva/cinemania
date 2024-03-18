@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import mk.ukim.finki.cinemania.R
 import mk.ukim.finki.cinemania.databinding.FragmentMovieListBinding
 import mk.ukim.finki.cinemania.extensions.viewBinding
-import mk.ukim.finki.cinemania.ui.shared.Constants.LOADING_DIALOG_TAG
+import mk.ukim.finki.cinemania.utils.Constants.LOADING_DIALOG_TAG
 import mk.ukim.finki.cinemania.ui.shared.LoadingDialog
 
 @AndroidEntryPoint

@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -6,6 +8,9 @@ plugins {
     id("dagger.hilt.android.plugin")
     id("kotlinx-serialization")
 }
+
+val properties = Properties()
+properties.load(project.rootProject.file("local.properties").inputStream())
 
 android {
     namespace = "mk.ukim.finki.cinemania"
@@ -19,6 +24,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "MOVIES_API_KEY", properties.getProperty("MOVIES_API_KEY"))
     }
 
     buildFeatures {
