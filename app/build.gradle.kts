@@ -7,6 +7,7 @@ plugins {
     id("kotlin-parcelize")
     id("dagger.hilt.android.plugin")
     id("kotlinx-serialization")
+    id("com.google.gms.google-services")
 }
 
 val properties = Properties()
@@ -105,4 +106,8 @@ dependencies {
     // Chucker
     debugImplementation("com.github.chuckerteam.chucker:library:4.0.0")
     releaseImplementation("com.github.chuckerteam.chucker:library-no-op:4.0.0")
+
+    // Firebase
+    implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
+    implementation("com.google.firebase:firebase-auth")
 }
