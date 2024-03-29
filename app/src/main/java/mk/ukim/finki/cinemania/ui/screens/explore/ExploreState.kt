@@ -1,7 +1,7 @@
-package mk.ukim.finki.cinemania.ui.screens.movielist
+package mk.ukim.finki.cinemania.ui.screens.explore
 
 import mk.ukim.finki.cinemania.domain.models.Movie
 
-data class MovieListState(
+data class ExploreState(
     val movieList: List<Movie>
 )

@@ -1,4 +1,4 @@
-package mk.ukim.finki.cinemania.ui.screens.movielist
+package mk.ukim.finki.cinemania.ui.screens.explore
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,12 +11,12 @@ import kotlinx.coroutines.launch
 import mk.ukim.finki.cinemania.domain.movie.MovieRepository
 
 @HiltViewModel
-class MovieListViewModel @Inject constructor(
+class ExploreViewModel @Inject constructor(
     private val movieRepository: MovieRepository
 ) : ViewModel() {
 
-    private val _stateFlow: MutableStateFlow<MovieListState?> = MutableStateFlow(null)
-    val stateFlow: StateFlow<MovieListState?> = _stateFlow
+    private val _stateFlow: MutableStateFlow<ExploreState?> = MutableStateFlow(null)
+    val stateFlow: StateFlow<ExploreState?> = _stateFlow
 
     private val _loadingStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val loadingStateFlow: StateFlow<Boolean> = _loadingStateFlow
@@ -25,7 +25,7 @@ class MovieListViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             _loadingStateFlow.value = true
             val movieList = movieRepository.fetchPopularMovieList()
-            _stateFlow.value = MovieListState(movieList)
+            _stateFlow.value = ExploreState(movieList)
             _loadingStateFlow.value = false
         }
     }

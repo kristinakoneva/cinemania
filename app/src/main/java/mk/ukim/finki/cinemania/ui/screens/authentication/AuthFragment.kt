@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 import mk.ukim.finki.cinemania.R
 import mk.ukim.finki.cinemania.databinding.FragmentAuthBinding
 import mk.ukim.finki.cinemania.extensions.viewBinding
-import mk.ukim.finki.cinemania.ui.screens.MainActivity
+import mk.ukim.finki.cinemania.ui.screens.main.MainActivity
 import mk.ukim.finki.cinemania.ui.shared.LoadingDialog
 import mk.ukim.finki.cinemania.utils.Constants.LOADING_DIALOG_TAG
 

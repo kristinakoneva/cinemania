@@ -1,4 +1,4 @@
-package mk.ukim.finki.cinemania.ui.screens.movielist
+package mk.ukim.finki.cinemania.ui.screens.explore
 
 import android.os.Bundle
 import android.view.View
@@ -11,18 +11,18 @@ import androidx.lifecycle.repeatOnLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import mk.ukim.finki.cinemania.R
-import mk.ukim.finki.cinemania.databinding.FragmentMovieListBinding
+import mk.ukim.finki.cinemania.databinding.FragmentExploreBinding
 import mk.ukim.finki.cinemania.extensions.viewBinding
 import mk.ukim.finki.cinemania.ui.screens.adapters.MovieAdapter
 import mk.ukim.finki.cinemania.utils.Constants.LOADING_DIALOG_TAG
 import mk.ukim.finki.cinemania.ui.shared.LoadingDialog
 
 @AndroidEntryPoint
-class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
+class ExploreFragment : Fragment(R.layout.fragment_explore) {
 
-    private val binding by viewBinding(FragmentMovieListBinding::bind)
+    private val binding by viewBinding(FragmentExploreBinding::bind)
 
-    private val viewModel by viewModels<MovieListViewModel>()
+    private val viewModel by viewModels<ExploreViewModel>()
 
     private var loadingDialog: LoadingDialog? = null
 
