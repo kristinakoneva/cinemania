@@ -3,11 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav_graph"
-    app:startDestination="@id/movieListFragment">
+    app:startDestination="@id/explore">
 
     <fragment
-        android:id="@+id/movieListFragment"
+        android:id="@+id/explore"
         android:name="mk.ukim.finki.cinemania.ui.screens.explore.ExploreFragment"
-        android:label="MovieListFragment"
+        android:label="ExploreFragment"
         tools:layout="@layout/fragment_explore"/>
+
+    <fragment
+        android:id="@+id/saved"
+        android:name="mk.ukim.finki.cinemania.ui.screens.saved.SavedFragment"
+        android:label="SavedFragment"
+        tools:layout="@layout/fragment_saved"/>
+
+    <fragment
+        android:id="@+id/profile"
+        android:name="mk.ukim.finki.cinemania.ui.screens.profile.ProfileFragment"
+        android:label="ProfileFragment"
+        tools:layout="@layout/fragment_profile"/>
 </navigation>
