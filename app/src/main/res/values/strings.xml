@@ -3,4 +3,10 @@
     <string name="unknown_error_dialog_title">Unknown Error</string>
     <string name="unknown_error_dialog_message">Something went wrong.</string>
     <string name="action_ok">OK.</string>
+    <string name="register">Register</string>
+    <string name="description_no_account">Don\'t have an account?</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="name">Name</string>
 </resources>
