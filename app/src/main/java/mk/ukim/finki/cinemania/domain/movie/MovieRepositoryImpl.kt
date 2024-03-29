@@ -16,4 +16,13 @@ class MovieRepositoryImpl @Inject constructor(
             )
         }
     }
+
+    override suspend fun searchMovies(query: String): List<Movie> {
+        return movieApiSource.searchMovies(query).results.map { movieResource ->
+            Movie(
+                title = movieResource.title,
+                posterImage = Utils.createImageUrl(movieResource.posterPath)
+            )
+        }
+    }
 }
