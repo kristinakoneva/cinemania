@@ -9,4 +9,6 @@ interface AuthenticationSource {
     suspend fun loginUser(email: String, password: String): Boolean
 
     suspend fun getCurrentUser(): FirebaseUser?
+
+    suspend fun updateUserDisplayName(displayName: String)
 }

@@ -9,4 +9,6 @@ interface AuthenticationRepository {
     suspend fun loginUser(email: String, password: String): Boolean
 
     suspend fun getCurrentUser(): User?
+
+    suspend fun updateUserDisplayName(displayName: String)
 }

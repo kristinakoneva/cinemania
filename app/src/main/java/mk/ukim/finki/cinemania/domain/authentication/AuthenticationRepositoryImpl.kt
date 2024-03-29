@@ -22,4 +22,7 @@ class AuthenticationRepositoryImpl @Inject constructor(
             photoUrl = firebaseUser.photoUrl.toString()
         )
     }
+
+    override suspend fun updateUserDisplayName(displayName: String) =
+        authenticationSource.updateUserDisplayName(displayName)
 }
