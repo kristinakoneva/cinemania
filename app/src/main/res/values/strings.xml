@@ -12,6 +12,7 @@
     <string name="name">Name</string>
     <string name="explore">Explore</string>
     <string name="saved">Saved</string>
+    <string name="search_movies">Search movies</string>
     <string name="profile">Profile</string>
     <string name="explore_movies">Explore Movies</string>
     <string name="my_library">My Library</string>
