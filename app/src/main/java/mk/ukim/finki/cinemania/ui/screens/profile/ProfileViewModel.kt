@@ -45,4 +45,13 @@ class ProfileViewModel @Inject constructor(
             authenticationRepository.logoutUser()
         }
     }
+
+    fun editName(newName: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            _loadingStateFlow.value = true
+            authenticationRepository.updateUserDisplayName(newName)
+            _stateFlow.value = _stateFlow.value?.copy(name = newName)
+            _loadingStateFlow.value = false
+        }
+    }
 }

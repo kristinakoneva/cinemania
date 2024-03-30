@@ -31,4 +31,8 @@
     <string name="logout">Logout</string>
     <string name="description_logout_confirmation">Are you sure that you want to logout?</string>
     <string name="cancel">Cancel</string>
+    <string name="enter_new_name">Enter new name</string>
+    <string name="edit_name">Edit name</string>
+    <string name="save">Save</string>
+    <string name="new_name_error">New name cannot be empty</string>
 </resources>

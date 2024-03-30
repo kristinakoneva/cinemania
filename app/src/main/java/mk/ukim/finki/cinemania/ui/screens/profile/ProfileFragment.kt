@@ -3,6 +3,7 @@ package mk.ukim.finki.cinemania.ui.screens.profile
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -13,6 +14,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import mk.ukim.finki.cinemania.R
+import mk.ukim.finki.cinemania.databinding.DialogEditNameBinding
 import mk.ukim.finki.cinemania.databinding.FragmentProfileBinding
 import mk.ukim.finki.cinemania.extensions.viewBinding
 import mk.ukim.finki.cinemania.ui.screens.adapters.MovieAdapter
@@ -55,6 +57,10 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private fun initListeners() = with(binding) {
         logoutButton.setOnClickListener {
             showLogoutConfirmationDialog()
+        }
+
+        editNameButton.setOnClickListener {
+            showEditNameDialog()
         }
     }
 
@@ -112,6 +118,24 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 viewModel.logout()
                 startActivity(Intent(requireContext(), AuthActivity::class.java))
                 requireActivity().finish()
+            }
+            .setNegativeButton(R.string.cancel) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .create()
+        dialog.show()
+    }
+
+    private fun showEditNameDialog() {
+        val dialogView = DialogEditNameBinding.inflate(LayoutInflater.from(requireContext()))
+        val dialog = AlertDialog.Builder(requireContext())
+            .setTitle(R.string.edit_name)
+            .setView(dialogView.root)
+            .setPositiveButton(R.string.save) { dialog, _ ->
+                if (dialogView.editTextNewName.text.toString().isNotEmpty() && dialogView.editTextNewName.text != null) {
+                    viewModel.editName(dialogView.editTextNewName.text?.trim().toString())
+                }
+                dialog.dismiss()
             }
             .setNegativeButton(R.string.cancel) { dialog, _ ->
                 dialog.dismiss()
