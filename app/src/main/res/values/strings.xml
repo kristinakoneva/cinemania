@@ -34,5 +34,9 @@
     <string name="enter_new_name">Enter new name</string>
     <string name="edit_name">Edit name</string>
     <string name="save">Save</string>
-    <string name="new_name_error">New name cannot be empty</string>
+    <string name="error_email_required">Email is required</string>
+    <string name="error_password_required">Password is required</string>
+    <string name="error_invalid_email">Invalid email address</string>
+    <string name="error_password_length">Password must be at least 6 characters long</string>
+    <string name="error_name_required">Name is required</string>
 </resources>

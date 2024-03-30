@@ -119,22 +119,22 @@ class AuthFragment : Fragment(R.layout.fragment_auth) {
         val password = editTextPassword.text.toString().trim()
 
         if (email.isEmpty()) {
-            textInputLayoutEmail.error = "Email is required"
+            textInputLayoutEmail.error = getString(R.string.error_email_required)
             return
         }
 
         if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            textInputLayoutEmail.error = "Enter a valid email address"
+            textInputLayoutEmail.error = getString(R.string.error_invalid_email)
             return
         }
 
         if (password.isEmpty()) {
-            textInputLayoutPassword.error = "Password is required"
+            textInputLayoutPassword.error = getString(R.string.error_password_required)
             return
         }
 
         if (password.length < 6) {
-            textInputLayoutPassword.error = "Password must be at least 6 characters"
+            textInputLayoutPassword.error = getString(R.string.error_password_length)
             return
         }
 
@@ -142,7 +142,7 @@ class AuthFragment : Fragment(R.layout.fragment_auth) {
             val name = editTextName.text.toString().trim()
 
             if (name.isEmpty()) {
-                textInputLayoutName.error = "Name is required"
+                textInputLayoutName.error = getString(R.string.error_name_required)
                 return
             }
         }
