@@ -13,8 +13,8 @@ import mk.ukim.finki.cinemania.domain.movie.MovieRepository
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    authenticationRepository: AuthenticationRepository,
-    movieRepository: MovieRepository
+    private val authenticationRepository: AuthenticationRepository,
+    private val movieRepository: MovieRepository
 ) : ViewModel() {
 
     private val _stateFlow: MutableStateFlow<ProfileState?> = MutableStateFlow(null)
@@ -37,6 +37,12 @@ class ProfileViewModel @Inject constructor(
                 likedMovieRecommendations = movieList
             )
             _loadingStateFlow.value = false
+        }
+    }
+
+    fun logout() {
+        viewModelScope.launch(Dispatchers.IO) {
+            authenticationRepository.logoutUser()
         }
     }
 }

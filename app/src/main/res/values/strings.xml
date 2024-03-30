@@ -28,4 +28,7 @@
     <string name="recommendations">Recommendations</string>
     <string name="because_you_watched">Because you watched %s</string>
     <string name="because_you_liked">Because you liked %s</string>
+    <string name="logout">Logout</string>
+    <string name="description_logout_confirmation">Are you sure that you want to logout?</string>
+    <string name="cancel">Cancel</string>
 </resources>

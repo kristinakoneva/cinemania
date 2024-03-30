@@ -11,4 +11,6 @@ interface AuthenticationRepository {
     suspend fun getCurrentUser(): User?
 
     suspend fun updateUserDisplayName(displayName: String)
+
+    suspend fun logoutUser()
 }

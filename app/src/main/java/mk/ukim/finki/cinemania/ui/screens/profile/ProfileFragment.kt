@@ -1,5 +1,7 @@
 package mk.ukim.finki.cinemania.ui.screens.profile
 
+import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -14,6 +16,7 @@ import mk.ukim.finki.cinemania.R
 import mk.ukim.finki.cinemania.databinding.FragmentProfileBinding
 import mk.ukim.finki.cinemania.extensions.viewBinding
 import mk.ukim.finki.cinemania.ui.screens.adapters.MovieAdapter
+import mk.ukim.finki.cinemania.ui.screens.authentication.AuthActivity
 import mk.ukim.finki.cinemania.ui.shared.LoadingDialog
 import mk.ukim.finki.cinemania.utils.Constants
 
@@ -33,6 +36,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initAdapters()
         super.onViewCreated(view, savedInstanceState)
+        initListeners()
         collectStateFlow()
     }
 
@@ -46,6 +50,12 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             Toast.makeText(requireContext(), "Clicked on " + movie.title, Toast.LENGTH_SHORT).show()
         }
         likedMovieRecommendationsRecyclerView.adapter = likedMovieRecommendationsAdapter
+    }
+
+    private fun initListeners() = with(binding) {
+        logoutButton.setOnClickListener {
+            showLogoutConfirmationDialog()
+        }
     }
 
     private fun collectStateFlow() {
@@ -92,5 +102,21 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 }
             }
         }
+    }
+
+    private fun showLogoutConfirmationDialog() {
+        val dialog = AlertDialog.Builder(requireContext())
+            .setTitle(R.string.logout)
+            .setMessage(R.string.description_logout_confirmation)
+            .setPositiveButton(R.string.logout) { _, _ ->
+                viewModel.logout()
+                startActivity(Intent(requireContext(), AuthActivity::class.java))
+                requireActivity().finish()
+            }
+            .setNegativeButton(R.string.cancel) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .create()
+        dialog.show()
     }
 }
