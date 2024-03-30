@@ -19,4 +19,7 @@
     <string name="my_profile">My Profile</string>
     <string name="no_movies_found">No movies found.</string>
     <string name="show_popular_movies">Show popular movies</string>
+    <string name="already_watched">Already watched</string>
+    <string name="watch_later">Watch later</string>
+    <string name="my_favorites">My favorites</string>
 </resources>
