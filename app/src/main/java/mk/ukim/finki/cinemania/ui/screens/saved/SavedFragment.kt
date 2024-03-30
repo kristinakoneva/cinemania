@@ -61,7 +61,16 @@ class SavedFragment : Fragment(R.layout.fragment_saved) {
                 viewModel.stateFlow.collect { state ->
                     state?.let {
                         with(binding) {
-                            // TODO: Add empty states
+                            val hasWatchLaterMovies = state.watchLaterMovies.isNotEmpty()
+                            watchLaterMoviesRecyclerView.visibility = if (hasWatchLaterMovies) View.VISIBLE else View.GONE
+                            noWatchLaterMoviesDescription.visibility = if (hasWatchLaterMovies) View.GONE else View.VISIBLE
+                            val hasFavoriteMovies = state.favoriteMovies.isNotEmpty()
+                            favoriteMoviesRecyclerView.visibility = if (hasFavoriteMovies) View.VISIBLE else View.GONE
+                            noFavouriteMoviesDescription.visibility = if (hasFavoriteMovies) View.GONE else View.VISIBLE
+                            val hasWatchedMovies = state.watchedMovies.isNotEmpty()
+                            watchedMoviesRecyclerView.visibility = if (hasWatchedMovies) View.VISIBLE else View.GONE
+                            noWatchedMoviesDescription.visibility = if (hasWatchedMovies) View.GONE else View.VISIBLE
+
                             watchLaterAdapter.submitList(state.watchLaterMovies)
                             favoritesAdapter.submitList(state.favoriteMovies)
                             watchedAdapter.submitList(state.watchedMovies)
