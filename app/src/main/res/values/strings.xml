@@ -17,4 +17,6 @@
     <string name="explore_movies">Explore Movies</string>
     <string name="my_library">My Library</string>
     <string name="my_profile">My Profile</string>
+    <string name="no_movies_found">No movies found.</string>
+    <string name="show_popular_movies">Show popular movies</string>
 </resources>

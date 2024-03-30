@@ -22,6 +22,19 @@ class ExploreViewModel @Inject constructor(
     val loadingStateFlow: StateFlow<Boolean> = _loadingStateFlow
 
     init {
+        showPopularMovies()
+    }
+
+    fun searchMovies(query: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            _loadingStateFlow.value = true
+            val movieList = movieRepository.searchMovies(query)
+            _stateFlow.value = ExploreState(movieList)
+            _loadingStateFlow.value = false
+        }
+    }
+
+    fun showPopularMovies() {
         viewModelScope.launch(Dispatchers.IO) {
             _loadingStateFlow.value = true
             val movieList = movieRepository.fetchPopularMovieList()

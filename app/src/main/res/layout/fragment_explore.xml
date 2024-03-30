@@ -46,4 +46,33 @@
         app:spanCount="2"
         tools:listitem="@layout/item_movie"/>
 
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/noMoviesFoundDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/no_movies_found"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchView"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/showPopularMoviesButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/show_popular_movies"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/noMoviesFoundDescription"/>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/noMoviesFoundGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="noMoviesFoundDescription, showPopularMoviesButton"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
