@@ -38,6 +38,7 @@ class MovieDetailsActivity : AppCompatActivity() {
         } else {
             viewModel.initMovieDetails(movieId)
         }
+        collectStateFlow()
     }
 
     private fun collectStateFlow() {
