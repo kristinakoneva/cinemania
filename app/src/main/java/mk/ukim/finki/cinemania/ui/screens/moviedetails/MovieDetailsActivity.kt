@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.repeatOnLifecycle
+import coil.load
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import mk.ukim.finki.cinemania.R
@@ -76,5 +77,6 @@ class MovieDetailsActivity : AppCompatActivity() {
         spokenLanguages.text = movieDetails.spokenLanguages.joinToString(", ")
         productionCountries.text = movieDetails.productionCountries.joinToString(", ")
         duration.text = movieDetails.duration
+        image.load(movieDetails.posterImage)
     }
 }
