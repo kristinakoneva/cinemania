@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="32dp">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginVertical="32dp"
+            android:textSize="32sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image"
+            tools:text="Movie Name"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/releaseDateTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginHorizontal="24dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:text="@string/release_date"
+            app:layout_constraintEnd_toStartOf="@id/releaseDate"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/releaseDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:textSize="16sp"
+            android:textAlignment="textStart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/releaseDateTitle"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            tools:text="2014"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/durationTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginHorizontal="24dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:text="@string/duration"
+            app:layout_constraintEnd_toStartOf="@id/duration"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/releaseDateTitle"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/duration"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:textSize="16sp"
+            android:textAlignment="textStart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/durationTitle"
+            app:layout_constraintTop_toBottomOf="@id/releaseDateTitle"
+            tools:text="124 min"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/overviewTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginHorizontal="24dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:text="@string/overview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/duration"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/overview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginHorizontal="24dp"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/overviewTitle"
+            tools:text="Movie overview..."/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/genresTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginHorizontal="24dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:text="@string/genres"
+            app:layout_constraintEnd_toStartOf="@id/genres"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/overview"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/genres"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:textSize="16sp"
+            android:textAlignment="textStart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/genresTitle"
+            app:layout_constraintTop_toBottomOf="@id/overview"
+            tools:text="Romance, Thriller"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/spokenLanguagesTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginHorizontal="24dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:text="@string/spoken_languages"
+            app:layout_constraintEnd_toStartOf="@id/spokenLanguages"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/genres"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/spokenLanguages"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:textSize="16sp"
+            android:textAlignment="textStart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/spokenLanguagesTitle"
+            app:layout_constraintTop_toBottomOf="@id/genres"
+            tools:text="English, French"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/productionCountriesTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginHorizontal="24dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:text="@string/production_countries"
+            app:layout_constraintEnd_toStartOf="@id/productionCountries"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/spokenLanguagesTitle"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/productionCountries"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:textSize="16sp"
+            android:textAlignment="textStart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/productionCountriesTitle"
+            app:layout_constraintTop_toBottomOf="@id/spokenLanguagesTitle"
+            tools:text="England, France"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/ratingTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginHorizontal="24dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:text="@string/rating"
+            app:layout_constraintEnd_toStartOf="@id/rating"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/productionCountriesTitle"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/rating"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:textSize="16sp"
+            android:textAlignment="textStart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ratingTitle"
+            app:layout_constraintTop_toBottomOf="@id/productionCountriesTitle"
+            tools:text="8.2"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

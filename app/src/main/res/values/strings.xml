@@ -39,4 +39,12 @@
     <string name="error_invalid_email">Invalid email address</string>
     <string name="error_password_length">Password must be at least 6 characters long</string>
     <string name="error_name_required">Name is required</string>
+    <string name="duration">Duration:</string>
+    <string name="overview">Overview:</string>
+    <string name="genres">Genres:</string>
+    <string name="spoken_languages">Spoken Languages:</string>
+    <string name="production_countries">Production Countries:</string>
+    <string name="release_date">Release Date:</string>
+    <string name="rating">Rating:</string>
+    <string name="invalid_movie">Invalid movie</string>
 </resources>

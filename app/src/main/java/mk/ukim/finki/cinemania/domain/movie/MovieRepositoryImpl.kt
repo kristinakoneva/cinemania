@@ -29,7 +29,7 @@ class MovieRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun fetchMovieDetailsByd(movieId: Int): MovieDetails {
+    override suspend fun fetchMovieDetailsById(movieId: Int): MovieDetails {
         return movieApiSource.fetchMovieDetailsById(movieId).let { movieDetailsResponse ->
             MovieDetails(
                 id = movieDetailsResponse.id,

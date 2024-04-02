@@ -9,5 +9,5 @@ interface MovieRepository {
 
     suspend fun searchMovies(query: String): List<Movie>
 
-    suspend fun fetchMovieDetailsByd(movieId: Int): MovieDetails
+    suspend fun fetchMovieDetailsById(movieId: Int): MovieDetails
 }
