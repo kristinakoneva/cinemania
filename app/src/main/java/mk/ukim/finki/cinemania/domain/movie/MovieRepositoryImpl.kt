@@ -37,7 +37,7 @@ class MovieRepositoryImpl @Inject constructor(
                 posterImage = Utils.createImageUrl(movieDetailsResponse.posterPath),
                 overview = movieDetailsResponse.overview,
                 releaseDate = movieDetailsResponse.releaseDate,
-                rating = movieDetailsResponse.rating,
+                rating = movieDetailsResponse.voteAverage,
                 productionCountries = movieDetailsResponse.productionCountries.map { countryResource ->
                     countryResource.name
                 },
@@ -47,7 +47,7 @@ class MovieRepositoryImpl @Inject constructor(
                 spokenLanguages = movieDetailsResponse.spokenLanguages.map { languageResource ->
                     languageResource.name
                 },
-                runtime = movieDetailsResponse.runtime
+                duration = String.format("%d min", movieDetailsResponse.runtime),
             )
         }
     }

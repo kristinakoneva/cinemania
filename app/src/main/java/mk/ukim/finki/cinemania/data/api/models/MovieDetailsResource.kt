@@ -16,7 +16,7 @@ data class MovieDetailsResource(
     @SerialName("release_date")
     val releaseDate: String,
     @SerialName("vote_average")
-    val rating: Double,
+    val voteAverage: Double,
     @SerialName("genres")
     val genres: List<GenreResource>,
     @SerialName("production_countries")

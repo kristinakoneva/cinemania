@@ -7,7 +7,7 @@ data class MovieDetails(
     val posterImage: String?,
     val releaseDate: String,
     val rating: Double,
-    val runtime: Int,
+    val duration: String,
     val genres: List<String>,
     val productionCountries: List<String>,
     val spokenLanguages: List<String>
