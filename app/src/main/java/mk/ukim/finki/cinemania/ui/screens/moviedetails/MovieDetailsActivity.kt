@@ -39,6 +39,7 @@ class MovieDetailsActivity : AppCompatActivity() {
         } else {
             viewModel.initMovieDetails(movieId)
         }
+        initListeners()
         collectStateFlow()
     }
 
@@ -68,8 +69,13 @@ class MovieDetailsActivity : AppCompatActivity() {
         }
     }
 
+    private fun initListeners() = with(binding) {
+        toolbar.setNavigationOnClickListener { finish() }
+    }
+
     private fun initUi(movieDetails: MovieDetails) = with(binding) {
         title.text = movieDetails.title
+        toolbar.title = movieDetails.title
         overview.text = movieDetails.overview
         releaseDate.text = movieDetails.releaseDate
         rating.text = movieDetails.rating.toString()
