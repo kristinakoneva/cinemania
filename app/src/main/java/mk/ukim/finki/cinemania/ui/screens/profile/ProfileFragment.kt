@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -19,6 +18,7 @@ import mk.ukim.finki.cinemania.databinding.FragmentProfileBinding
 import mk.ukim.finki.cinemania.extensions.viewBinding
 import mk.ukim.finki.cinemania.ui.screens.adapters.MovieAdapter
 import mk.ukim.finki.cinemania.ui.screens.authentication.AuthActivity
+import mk.ukim.finki.cinemania.ui.screens.moviedetails.MovieDetailsActivity
 import mk.ukim.finki.cinemania.ui.shared.LoadingDialog
 import mk.ukim.finki.cinemania.utils.Constants
 
@@ -44,12 +44,12 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     private fun initAdapters() = with(binding) {
         watchedMovieRecommendationsAdapter = MovieAdapter(items = emptyList(), areActionsVisible = false) { movie ->
-            Toast.makeText(requireContext(), "Clicked on " + movie.title, Toast.LENGTH_SHORT).show()
+            navigateToMovieDetails(movie.id)
         }
         watchedMovieRecommendationsRecyclerView.adapter = watchedMovieRecommendationsAdapter
 
         likedMovieRecommendationsAdapter = MovieAdapter(items = emptyList(), areActionsVisible = false) { movie ->
-            Toast.makeText(requireContext(), "Clicked on " + movie.title, Toast.LENGTH_SHORT).show()
+            navigateToMovieDetails(movie.id)
         }
         likedMovieRecommendationsRecyclerView.adapter = likedMovieRecommendationsAdapter
     }
@@ -142,5 +142,11 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             }
             .create()
         dialog.show()
+    }
+
+    private fun navigateToMovieDetails(movieId: Int) {
+        val intent = Intent(requireContext(), MovieDetailsActivity::class.java)
+        intent.putExtra(MovieDetailsActivity.MOVIE_ID, movieId)
+        startActivity(intent)
     }
 }
