@@ -1,4 +1,4 @@
-package mk.ukim.finki.cinemania.ui.screens.saved
+package mk.ukim.finki.cinemania.ui.screens.moviedetails
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,22 +11,23 @@ import kotlinx.coroutines.launch
 import mk.ukim.finki.cinemania.domain.movie.MovieRepository
 
 @HiltViewModel
-class SavedViewModel @Inject constructor(
+class MovieDetailsViewModel @Inject constructor(
     private val movieRepository: MovieRepository
 ) : ViewModel() {
 
-    private val _stateFlow: MutableStateFlow<SavedState?> = MutableStateFlow(null)
-    val stateFlow: StateFlow<SavedState?> = _stateFlow
+    private val _stateFlow: MutableStateFlow<MovieDetailsState?> = MutableStateFlow(null)
+    val stateFlow: StateFlow<MovieDetailsState?> = _stateFlow
 
     private val _loadingStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val loadingStateFlow: StateFlow<Boolean> = _loadingStateFlow
 
-    init {
+    fun initMovieDetails(movieId: Int) {
+        if (_stateFlow.value != null) return
+
         viewModelScope.launch(Dispatchers.IO) {
             _loadingStateFlow.value = true
-            // TODO: Implement logic for fetching actual saved user choices. Displaying the popular movies for now.
-            val movieList = movieRepository.fetchPopularMovieList()
-            _stateFlow.value = SavedState(movieList, movieList, movieList)
+            val movieDetails = movieRepository.fetchMovieDetailsById(movieId)
+            _stateFlow.value = MovieDetailsState(movieDetails)
             _loadingStateFlow.value = false
         }
     }
