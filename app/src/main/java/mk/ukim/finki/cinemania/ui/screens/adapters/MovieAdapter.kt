@@ -9,6 +9,7 @@ import mk.ukim.finki.cinemania.domain.models.Movie
 
 class MovieAdapter(
     private var items: List<Movie>,
+    private var areActionsVisible: Boolean = true,
     private val onItemClickCallback: (Movie) -> Unit
 ) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
@@ -33,6 +34,22 @@ class MovieAdapter(
     inner class MovieViewHolder(private val binding: ItemMovieBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Movie) {
             with(binding) {
+                val layoutParams = ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+                var marginParams = ViewGroup.MarginLayoutParams(layoutParams)
+                if (!areActionsVisible) {
+                    groupActions.visibility = ViewGroup.GONE
+                    layoutParams.width = 500
+                    marginParams = ViewGroup.MarginLayoutParams(layoutParams)
+                    marginParams.bottomMargin = 0
+                } else {
+                    marginParams.bottomMargin = 30
+                }
+                marginParams.marginStart = 8
+                marginParams.marginEnd = 8
+                root.layoutParams = marginParams
                 movieTitle.text = item.title
                 movieImage.load(item.posterImage)
                 root.setOnClickListener {

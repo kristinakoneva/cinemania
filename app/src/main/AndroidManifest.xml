@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:name=".CinemaniaApp"
@@ -15,8 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Cinemania"
         tools:targetApi="31">
+
         <activity
-            android:name=".ui.screens.MainActivity"
+            android:name=".ui.screens.authentication.AuthActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -25,6 +26,15 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-    </application>
 
+        <activity
+            android:name=".ui.screens.main.MainActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".ui.screens.moviedetails.MovieDetailsActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"/>
+    </application>
 </manifest>

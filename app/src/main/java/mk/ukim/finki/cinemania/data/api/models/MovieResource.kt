@@ -5,6 +5,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class MovieResource(
+    @SerialName("id")
+    val id: Int,
     @SerialName("title")
     val title: String,
     @SerialName("poster_path")
