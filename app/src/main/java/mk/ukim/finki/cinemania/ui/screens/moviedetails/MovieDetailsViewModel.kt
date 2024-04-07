@@ -1,4 +1,4 @@
-package mk.ukim.finki.cinemania.ui.screens.explore
+package mk.ukim.finki.cinemania.ui.screens.moviedetails
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,34 +11,23 @@ import kotlinx.coroutines.launch
 import mk.ukim.finki.cinemania.domain.movie.MovieRepository
 
 @HiltViewModel
-class ExploreViewModel @Inject constructor(
+class MovieDetailsViewModel @Inject constructor(
     private val movieRepository: MovieRepository
 ) : ViewModel() {
 
-    private val _stateFlow: MutableStateFlow<ExploreState?> = MutableStateFlow(null)
-    val stateFlow: StateFlow<ExploreState?> = _stateFlow
+    private val _stateFlow: MutableStateFlow<MovieDetailsState?> = MutableStateFlow(null)
+    val stateFlow: StateFlow<MovieDetailsState?> = _stateFlow
 
     private val _loadingStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val loadingStateFlow: StateFlow<Boolean> = _loadingStateFlow
 
-    init {
-        showPopularMovies()
-    }
+    fun initMovieDetails(movieId: Int) {
+        if (_stateFlow.value != null) return
 
-    fun searchMovies(query: String) {
         viewModelScope.launch(Dispatchers.IO) {
             _loadingStateFlow.value = true
-            val movieList = movieRepository.searchMovies(query)
-            _stateFlow.value = ExploreState(movieList)
-            _loadingStateFlow.value = false
-        }
-    }
-
-    fun showPopularMovies() {
-        viewModelScope.launch(Dispatchers.IO) {
-            _loadingStateFlow.value = true
-            val movieList = movieRepository.fetchPopularMovieList()
-            _stateFlow.value = ExploreState(movieList)
+            val movieDetails = movieRepository.fetchMovieDetailsById(movieId)
+            _stateFlow.value = MovieDetailsState(movieDetails)
             _loadingStateFlow.value = false
         }
     }

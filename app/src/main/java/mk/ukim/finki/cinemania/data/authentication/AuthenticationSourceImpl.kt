@@ -29,4 +29,6 @@ class AuthenticationSourceImpl @Inject constructor(private val firebaseAuth: Fir
             .build()
         firebaseAuth.currentUser?.updateProfile(updateDisplayNameRequest)?.await()
     }
+
+    override suspend fun logoutUser() = firebaseAuth.signOut()
 }
