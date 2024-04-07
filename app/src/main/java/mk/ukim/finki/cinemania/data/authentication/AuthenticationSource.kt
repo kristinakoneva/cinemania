@@ -11,4 +11,6 @@ interface AuthenticationSource {
     suspend fun getCurrentUser(): FirebaseUser?
 
     suspend fun updateUserDisplayName(displayName: String)
+
+    suspend fun logoutUser()
 }

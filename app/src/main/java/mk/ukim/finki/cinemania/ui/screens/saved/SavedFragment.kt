@@ -1,8 +1,8 @@
 package mk.ukim.finki.cinemania.ui.screens.saved
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -14,6 +14,7 @@ import mk.ukim.finki.cinemania.R
 import mk.ukim.finki.cinemania.databinding.FragmentSavedBinding
 import mk.ukim.finki.cinemania.extensions.viewBinding
 import mk.ukim.finki.cinemania.ui.screens.adapters.MovieAdapter
+import mk.ukim.finki.cinemania.ui.screens.moviedetails.MovieDetailsActivity
 import mk.ukim.finki.cinemania.ui.shared.LoadingDialog
 import mk.ukim.finki.cinemania.utils.Constants
 
@@ -40,17 +41,17 @@ class SavedFragment : Fragment(R.layout.fragment_saved) {
 
     private fun initAdapters() = with(binding) {
         watchLaterAdapter = MovieAdapter(items = emptyList(), areActionsVisible = false) { movie ->
-            Toast.makeText(requireContext(), "Clicked on " + movie.title, Toast.LENGTH_SHORT).show()
+            navigateToMovieDetails(movie.id)
         }
         watchLaterMoviesRecyclerView.adapter = watchLaterAdapter
 
         favoritesAdapter = MovieAdapter(items = emptyList(), areActionsVisible = false) { movie ->
-            Toast.makeText(requireContext(), "Clicked on " + movie.title, Toast.LENGTH_SHORT).show()
+            navigateToMovieDetails(movie.id)
         }
         favoriteMoviesRecyclerView.adapter = favoritesAdapter
 
         watchedAdapter = MovieAdapter(items = emptyList(), areActionsVisible = false) { movie ->
-            Toast.makeText(requireContext(), "Clicked on " + movie.title, Toast.LENGTH_SHORT).show()
+            navigateToMovieDetails(movie.id)
         }
         watchedMoviesRecyclerView.adapter = watchedAdapter
     }
@@ -93,6 +94,12 @@ class SavedFragment : Fragment(R.layout.fragment_saved) {
                 }
             }
         }
+    }
+
+    private fun navigateToMovieDetails(movieId: Int) {
+        val intent = Intent(requireContext(), MovieDetailsActivity::class.java)
+        intent.putExtra(MovieDetailsActivity.MOVIE_ID, movieId)
+        startActivity(intent)
     }
 }
 

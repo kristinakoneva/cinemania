@@ -25,4 +25,6 @@ class AuthenticationRepositoryImpl @Inject constructor(
 
     override suspend fun updateUserDisplayName(displayName: String) =
         authenticationSource.updateUserDisplayName(displayName)
+
+    override suspend fun logoutUser() = authenticationSource.logoutUser()
 }
