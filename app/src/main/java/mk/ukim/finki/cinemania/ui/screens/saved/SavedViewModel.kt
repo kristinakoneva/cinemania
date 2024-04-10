@@ -8,11 +8,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import mk.ukim.finki.cinemania.domain.authentication.AuthenticationRepository
+import mk.ukim.finki.cinemania.domain.firestore.FirestoreRepository
 import mk.ukim.finki.cinemania.domain.movie.MovieRepository
 
 @HiltViewModel
 class SavedViewModel @Inject constructor(
-    private val movieRepository: MovieRepository
+    private val movieRepository: MovieRepository,
+    private val firestoreRepository: FirestoreRepository,
+    private val authRepository: AuthenticationRepository
 ) : ViewModel() {
 
     private val _stateFlow: MutableStateFlow<SavedState?> = MutableStateFlow(null)
@@ -26,7 +30,40 @@ class SavedViewModel @Inject constructor(
             _loadingStateFlow.value = true
             // TODO: Implement logic for fetching actual saved user choices. Displaying the popular movies for now.
             val movieList = movieRepository.fetchPopularMovieList()
-            _stateFlow.value = SavedState(movieList, movieList, movieList)
+
+            val firestoreWatchlistMovieIds = authRepository.getCurrentUser()?.uid?.let {
+                firestoreRepository.getWatchlist(
+                    it
+                )
+            }
+
+            val firestoreFavoritesMovieIds = authRepository.getCurrentUser()?.uid?.let {
+                firestoreRepository.getFavorites(
+                    it
+                )
+            }
+
+            val firestoreWatchedMovieIds = authRepository.getCurrentUser()?.uid?.let {
+                firestoreRepository.getWatchedMovies(
+                    it
+                )
+            }
+
+            val firestoreWatchlistMovieList = firestoreWatchlistMovieIds?.map { movieId ->
+                movieRepository.fetchMovieById(movieId)
+            }
+
+            val firestoreFavoritesMovieList = firestoreFavoritesMovieIds?.map { movieId ->
+                movieRepository.fetchMovieById(movieId)
+            }
+
+            val firestoreWatchedMovieList = firestoreWatchedMovieIds?.map { movieId ->
+                movieRepository.fetchMovieById(movieId)
+            }
+
+            _stateFlow.value = SavedState(firestoreWatchlistMovieList ?: emptyList(),
+                firestoreFavoritesMovieList ?: emptyList(),
+                firestoreWatchedMovieList ?: emptyList())
             _loadingStateFlow.value = false
         }
     }

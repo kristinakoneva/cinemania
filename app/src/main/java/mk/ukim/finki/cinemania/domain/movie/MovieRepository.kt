@@ -10,4 +10,6 @@ interface MovieRepository {
     suspend fun searchMovies(query: String): List<Movie>
 
     suspend fun fetchMovieDetailsById(movieId: Int): MovieDetails
+
+    suspend fun fetchMovieById(movieId: Int): Movie
 }
