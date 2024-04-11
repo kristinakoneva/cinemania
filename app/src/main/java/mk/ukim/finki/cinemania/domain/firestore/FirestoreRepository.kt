@@ -1,5 +1,7 @@
 package mk.ukim.finki.cinemania.domain.firestore
 
+import com.google.firebase.firestore.DocumentSnapshot
+
 interface FirestoreRepository {
     suspend fun getFavorites(userId: String): List<Int>
 
@@ -12,4 +14,8 @@ interface FirestoreRepository {
     suspend fun addToWatched(movieId: Int)
 
     suspend fun addToWatchlist(movieId: Int)
+
+    suspend fun createUserDocument(userId: String)
+
+    suspend fun getUserDocument(userId: String): DocumentSnapshot?
 }

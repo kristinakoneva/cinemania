@@ -1,5 +1,6 @@
 package mk.ukim.finki.cinemania.domain.firestore
 
+import com.google.firebase.firestore.DocumentSnapshot
 import mk.ukim.finki.cinemania.data.firestore.FirestoreSource
 import javax.inject.Inject
 
@@ -28,6 +29,14 @@ class FirestoreRepositoryImpl @Inject constructor(
 
     override suspend fun addToWatchlist(movieId: Int) {
         TODO("Not yet implemented")
+    }
+
+    override suspend fun createUserDocument(userId: String) {
+        firestoreSource.createUserDocument(userId)
+    }
+
+    override suspend fun getUserDocument(userId: String): DocumentSnapshot? {
+        return firestoreSource.getUserDocument(userId)
     }
 
 }
