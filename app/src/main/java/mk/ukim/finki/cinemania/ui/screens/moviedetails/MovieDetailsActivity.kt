@@ -8,6 +8,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.repeatOnLifecycle
 import coil.load
+import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import mk.ukim.finki.cinemania.R
@@ -32,6 +33,11 @@ class MovieDetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        val addToWatchLaterButton = findViewById<MaterialButton>(R.id.addToWatchLaterButton)
+        val addToFavoritesButton = findViewById<MaterialButton>(R.id.addToFavoritesButton)
+        val addToWatchedButton = findViewById<MaterialButton>(R.id.addToWatchedButton)
+
         val movieId = intent.getIntExtra(MOVIE_ID, -1)
         if (movieId == -1) {
             Toast.makeText(this, getString(R.string.invalid_movie), Toast.LENGTH_SHORT).show()
@@ -71,6 +77,34 @@ class MovieDetailsActivity : AppCompatActivity() {
 
     private fun initListeners() = with(binding) {
         toolbar.setNavigationOnClickListener { finish() }
+        val movieId = intent.getIntExtra(MOVIE_ID, -1)
+
+        addToWatchLaterButton.setOnClickListener {
+            addToWatchLater(movieId)
+        }
+
+        addToFavoritesButton.setOnClickListener {
+            addToFavorites(movieId)
+        }
+
+        addToWatchedButton.setOnClickListener {
+            addToWatched(movieId)
+        }
+    }
+
+    private fun addToWatchLater(movieId: Int) {
+        viewModel.addToWatchlist(movieId)
+        Toast.makeText(this, "Added to Watch Later", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun addToFavorites(movieId: Int) {
+        viewModel.addToFavorites(movieId)
+        Toast.makeText(this, "Added to Favorites", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun addToWatched(movieId: Int) {
+        viewModel.addToWatched(movieId)
+        Toast.makeText(this, "Added to Watched", Toast.LENGTH_SHORT).show()
     }
 
     private fun initUi(movieDetails: MovieDetails) = with(binding) {

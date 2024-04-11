@@ -9,11 +9,11 @@ interface FirestoreRepository {
 
     suspend fun getWatchlist(userId: String): List<Int>
 
-    suspend fun addToFavorites(movieId: Int)
+    suspend fun addToFavorites(movieId: Int, userId: String)
 
-    suspend fun addToWatched(movieId: Int)
+    suspend fun addToWatched(movieId: Int, userId: String)
 
-    suspend fun addToWatchlist(movieId: Int)
+    suspend fun addToWatchlist(movieId: Int, userId: String)
 
     suspend fun createUserDocument(userId: String)
 

@@ -19,16 +19,16 @@ class FirestoreRepositoryImpl @Inject constructor(
         return firestoreSource.getWatchlist(userId)
     }
 
-    override suspend fun addToFavorites(movieId: Int) {
-        TODO("Not yet implemented")
+    override suspend fun addToFavorites(movieId: Int, userId: String) {
+        firestoreSource.addToFavorites(movieId, userId)
     }
 
-    override suspend fun addToWatched(movieId: Int) {
-        TODO("Not yet implemented")
+    override suspend fun addToWatched(movieId: Int, userId: String) {
+        firestoreSource.addToWatched(movieId, userId)
     }
 
-    override suspend fun addToWatchlist(movieId: Int) {
-        TODO("Not yet implemented")
+    override suspend fun addToWatchlist(movieId: Int, userId: String) {
+        firestoreSource.addToWatchlist(movieId, userId)
     }
 
     override suspend fun createUserDocument(userId: String) {

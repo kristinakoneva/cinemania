@@ -3,6 +3,7 @@ package mk.ukim.finki.cinemania.data.firestore
 import android.util.Log
 import com.google.android.gms.tasks.Tasks.await
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FieldValue
 import javax.inject.Inject
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
@@ -48,16 +49,31 @@ class FirestoreSourceImpl @Inject constructor(private val db: FirebaseFirestore)
         }
     }
 
-    override suspend fun addToFavorites(movieId: Int) {
-        TODO("Not yet implemented")
+    override suspend fun addToFavorites(movieId: Int, userId: String) {
+        db.collection("users").document(userId)
+            .update("favorites", FieldValue.arrayUnion(movieId))
+            .await()
+            .also {
+                Log.d("Firestore", "Added movie $movieId to favorites for user $userId")
+            }
     }
 
-    override suspend fun addToWatched(movieId: Int) {
-        TODO("Not yet implemented")
+    override suspend fun addToWatched(movieId: Int, userId: String) {
+        db.collection("users").document(userId)
+            .update("watched", FieldValue.arrayUnion(movieId))
+            .await()
+            .also {
+                Log.d("Firestore", "Added movie $movieId to favorites for user $userId")
+            }
     }
 
-    override suspend fun addToWatchlist(movieId: Int) {
-        TODO("Not yet implemented")
+    override suspend fun addToWatchlist(movieId: Int, userId: String) {
+        db.collection("users").document(userId)
+            .update("watchlist", FieldValue.arrayUnion(movieId))
+            .await()
+            .also {
+                Log.d("Firestore", "Added movie $movieId to favorites for user $userId")
+            }
     }
 
     override suspend fun createUserDocument(userId: String) {

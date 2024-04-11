@@ -28,8 +28,6 @@ class SavedViewModel @Inject constructor(
     init {
         viewModelScope.launch(Dispatchers.IO) {
             _loadingStateFlow.value = true
-            // TODO: Implement logic for fetching actual saved user choices. Displaying the popular movies for now.
-            val movieList = movieRepository.fetchPopularMovieList()
 
             val firestoreWatchlistMovieIds = authRepository.getCurrentUser()?.uid?.let {
                 firestoreRepository.getWatchlist(
