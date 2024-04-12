@@ -40,7 +40,7 @@ class MovieAdapter(
                 )
                 var marginParams = ViewGroup.MarginLayoutParams(layoutParams)
                 if (!areActionsVisible) {
-                    groupActions.visibility = ViewGroup.GONE
+                    actions.root.visibility = ViewGroup.GONE
                     layoutParams.width = 500
                     marginParams = ViewGroup.MarginLayoutParams(layoutParams)
                     marginParams.bottomMargin = 0

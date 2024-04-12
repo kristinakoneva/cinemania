@@ -74,16 +74,18 @@ class MovieDetailsActivity : AppCompatActivity() {
         toolbar.setNavigationOnClickListener { finish() }
         val movieId = intent.getIntExtra(MOVIE_ID, -1)
 
-        addToWatchLaterButton.setOnClickListener {
-            addToWatchLater(movieId)
-        }
+        with(actions){
+            watchLaterButton.setOnClickListener {
+                addToWatchLater(movieId)
+            }
 
-        addToFavoritesButton.setOnClickListener {
-            addToFavorites(movieId)
-        }
+            favoritesButton.setOnClickListener {
+                addToFavorites(movieId)
+            }
 
-        addToWatchedButton.setOnClickListener {
-            addToWatched(movieId)
+            watchedButton.setOnClickListener {
+                addToWatched(movieId)
+            }
         }
     }
 
