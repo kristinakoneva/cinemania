@@ -119,4 +119,12 @@ class ExploreViewModel @Inject constructor(
         }
         _stateFlow.value = ExploreState(movieItems)
     }
+
+    fun backgroundRefresh() {
+        viewModelScope.launch(Dispatchers.IO) {
+            if (_stateFlow.value != null) {
+                setState()
+            }
+        }
+    }
 }

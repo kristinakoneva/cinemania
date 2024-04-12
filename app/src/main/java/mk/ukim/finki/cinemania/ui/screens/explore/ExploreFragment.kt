@@ -38,6 +38,11 @@ class ExploreFragment : Fragment(R.layout.fragment_explore) {
         collectStateFlow()
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.backgroundRefresh()
+    }
+
     private fun initAdapter() = with(binding) {
         adapter = MovieAdapter(items = emptyList(),
             onWatchedButtonClick = { movieId, isSelected -> viewModel.onWatchedActionSelected(movieId, isSelected) },

@@ -1,6 +1,5 @@
 package mk.ukim.finki.cinemania.ui.screens.moviedetails
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -15,7 +14,6 @@ import mk.ukim.finki.cinemania.R
 import mk.ukim.finki.cinemania.databinding.ActivityMovieDetailsBinding
 import mk.ukim.finki.cinemania.domain.models.MovieDetails
 import mk.ukim.finki.cinemania.extensions.viewBinding
-import mk.ukim.finki.cinemania.ui.screens.main.MainActivity
 import mk.ukim.finki.cinemania.ui.shared.LoadingDialog
 import mk.ukim.finki.cinemania.utils.Constants
 
@@ -78,10 +76,7 @@ class MovieDetailsActivity : AppCompatActivity() {
     }
 
     private fun initListeners() = with(binding) {
-        toolbar.setNavigationOnClickListener {
-            startActivity(Intent(this@MovieDetailsActivity, MainActivity::class.java))
-            finish()
-        }
+        toolbar.setNavigationOnClickListener { finish() }
         val movieId = intent.getIntExtra(MOVIE_ID, -1)
 
         with(actions) {
