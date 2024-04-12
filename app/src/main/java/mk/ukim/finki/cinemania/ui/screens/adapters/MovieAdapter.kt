@@ -8,7 +8,7 @@ import mk.ukim.finki.cinemania.databinding.ItemMovieBinding
 import mk.ukim.finki.cinemania.domain.models.Movie
 
 class MovieAdapter(
-    private var items: List<Movie>,
+    private var items: List<MovieItem>,
     private var areActionsVisible: Boolean = true,
     private val onItemClickCallback: (Movie) -> Unit
 ) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
@@ -26,13 +26,13 @@ class MovieAdapter(
         return items.count()
     }
 
-    fun submitList(movies: List<Movie>) {
+    fun submitList(movies: List<MovieItem>) {
         items = movies
         notifyDataSetChanged()
     }
 
     inner class MovieViewHolder(private val binding: ItemMovieBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Movie) {
+        fun bind(item: MovieItem) {
             with(binding) {
                 val layoutParams = ViewGroup.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
@@ -46,14 +46,19 @@ class MovieAdapter(
                     marginParams.bottomMargin = 0
                 } else {
                     marginParams.bottomMargin = 30
+                    with(actions) {
+                        watchLaterButton.isSelected = item.isAddedToWatchLater ?: false
+                        favoritesButton.isSelected = item.isAddedToFavorites ?: false
+                        watchedButton.isSelected = item.isAddedToWatched ?: false
+                    }
                 }
                 marginParams.marginStart = 8
                 marginParams.marginEnd = 8
                 root.layoutParams = marginParams
-                movieTitle.text = item.title
-                movieImage.load(item.posterImage)
+                movieTitle.text = item.movie.title
+                movieImage.load(item.movie.posterImage)
                 root.setOnClickListener {
-                    onItemClickCallback(item)
+                    onItemClickCallback(item.movie)
                 }
             }
         }

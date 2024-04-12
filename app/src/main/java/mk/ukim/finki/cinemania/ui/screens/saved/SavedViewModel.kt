@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 import mk.ukim.finki.cinemania.domain.authentication.AuthenticationRepository
 import mk.ukim.finki.cinemania.domain.user.UserRepository
 import mk.ukim.finki.cinemania.domain.movie.MovieRepository
+import mk.ukim.finki.cinemania.ui.screens.adapters.MovieItem
 
 @HiltViewModel
 class SavedViewModel @Inject constructor(
@@ -59,9 +60,9 @@ class SavedViewModel @Inject constructor(
                 movieRepository.fetchMovieById(movieId)
             }
 
-            _stateFlow.value = SavedState(watchlistMovieList ?: emptyList(),
-                favoritesMovieList ?: emptyList(),
-                watchedMovieList ?: emptyList())
+            _stateFlow.value = SavedState(watchlistMovieList?.map { MovieItem(it) } ?: emptyList(),
+                favoritesMovieList?.map { MovieItem(it) } ?: emptyList(),
+                watchedMovieList?.map { MovieItem(it) } ?: emptyList())
             _loadingStateFlow.value = false
         }
     }

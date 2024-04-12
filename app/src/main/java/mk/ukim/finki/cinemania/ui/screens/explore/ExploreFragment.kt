@@ -84,13 +84,13 @@ class ExploreFragment : Fragment(R.layout.fragment_explore) {
                 viewModel.stateFlow.collect { state ->
                     state?.let {
                         with(binding) {
-                            if (state.movieList.isEmpty()) {
+                            if (state.movieItems.isEmpty()) {
                                 noMoviesFoundGroup.visibility = View.VISIBLE
                                 moviesRecyclerView.visibility = View.GONE
                             } else {
                                 noMoviesFoundGroup.visibility = View.GONE
                                 moviesRecyclerView.visibility = View.VISIBLE
-                                adapter.submitList(state.movieList)
+                                adapter.submitList(state.movieItems)
                             }
                         }
 

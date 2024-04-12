@@ -102,4 +102,3 @@ class SavedFragment : Fragment(R.layout.fragment_saved) {
         startActivity(intent)
     }
 }
-
