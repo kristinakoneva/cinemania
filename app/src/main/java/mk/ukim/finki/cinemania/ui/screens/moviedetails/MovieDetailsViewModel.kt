@@ -57,6 +57,8 @@ class MovieDetailsViewModel @Inject constructor(
             val currentUser = authenticationRepository.getCurrentUser()
             if (currentUser != null) {
                 userRepository.addToFavorites(movieId, currentUser.uid)
+                favoritesIds = favoritesIds + listOf(movieId.toString())
+                refreshActionsState()
             }
         }
     }
@@ -66,6 +68,8 @@ class MovieDetailsViewModel @Inject constructor(
             val currentUser = authenticationRepository.getCurrentUser()
             if (currentUser != null) {
                 userRepository.addToWatched(movieId, currentUser.uid)
+                watchedIds = watchedIds + listOf(movieId.toString())
+                refreshActionsState()
             }
         }
     }
@@ -75,7 +79,51 @@ class MovieDetailsViewModel @Inject constructor(
             val currentUser = authenticationRepository.getCurrentUser()
             if (currentUser != null) {
                 userRepository.addToWatchlist(movieId, currentUser.uid)
+                watchlistIds = watchlistIds + listOf(movieId.toString())
+                refreshActionsState()
             }
         }
+    }
+
+    fun removeFromFavorites(movieId: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val currentUser = authenticationRepository.getCurrentUser()
+            if (currentUser != null) {
+                userRepository.removeFromFavorites(movieId, currentUser.uid)
+                favoritesIds = favoritesIds.filter { it != movieId.toString() }
+                refreshActionsState()
+            }
+        }
+    }
+
+    fun removeFromWatched(movieId: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val currentUser = authenticationRepository.getCurrentUser()
+            if (currentUser != null) {
+                userRepository.removeFromWatched(movieId, currentUser.uid)
+                watchedIds = watchedIds.filter { it != movieId.toString() }
+                refreshActionsState()
+            }
+        }
+    }
+
+    fun removeFromWatchlist(movieId: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val currentUser = authenticationRepository.getCurrentUser()
+            if (currentUser != null) {
+                userRepository.removeFromWatchlist(movieId, currentUser.uid)
+                watchlistIds = watchlistIds.filter { it != movieId.toString() }
+                refreshActionsState()
+            }
+        }
+    }
+
+    private fun refreshActionsState() {
+        val movieId = _stateFlow.value?.movieDetails?.id.toString()
+        _stateFlow.value = _stateFlow.value?.copy(
+            isAddedToWatched = watchedIds.contains(movieId),
+            isAddedToFavorites = favoritesIds.contains(movieId),
+            isAddedToWatchLater = watchlistIds.contains(movieId)
+        )
     }
 }

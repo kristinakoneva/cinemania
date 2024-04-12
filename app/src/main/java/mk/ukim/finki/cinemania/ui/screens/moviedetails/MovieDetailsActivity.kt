@@ -1,5 +1,6 @@
 package mk.ukim.finki.cinemania.ui.screens.moviedetails
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -14,6 +15,7 @@ import mk.ukim.finki.cinemania.R
 import mk.ukim.finki.cinemania.databinding.ActivityMovieDetailsBinding
 import mk.ukim.finki.cinemania.domain.models.MovieDetails
 import mk.ukim.finki.cinemania.extensions.viewBinding
+import mk.ukim.finki.cinemania.ui.screens.main.MainActivity
 import mk.ukim.finki.cinemania.ui.shared.LoadingDialog
 import mk.ukim.finki.cinemania.utils.Constants
 
@@ -76,20 +78,35 @@ class MovieDetailsActivity : AppCompatActivity() {
     }
 
     private fun initListeners() = with(binding) {
-        toolbar.setNavigationOnClickListener { finish() }
+        toolbar.setNavigationOnClickListener {
+            startActivity(Intent(this@MovieDetailsActivity, MainActivity::class.java))
+            finish()
+        }
         val movieId = intent.getIntExtra(MOVIE_ID, -1)
 
         with(actions) {
             watchLaterButton.setOnClickListener {
-                addToWatchLater(movieId)
+                if (it.isSelected) {
+                    removeFromWatchLater(movieId)
+                } else {
+                    addToWatchLater(movieId)
+                }
             }
 
             favoritesButton.setOnClickListener {
-                addToFavorites(movieId)
+                if (it.isSelected) {
+                    removeFromFavorites(movieId)
+                } else {
+                    addToFavorites(movieId)
+                }
             }
 
             watchedButton.setOnClickListener {
-                addToWatched(movieId)
+                if (it.isSelected) {
+                    removeFromWatched(movieId)
+                } else {
+                    addToWatched(movieId)
+                }
             }
         }
     }
@@ -107,6 +124,21 @@ class MovieDetailsActivity : AppCompatActivity() {
     private fun addToWatched(movieId: Int) {
         viewModel.addToWatched(movieId)
         Toast.makeText(this, "Added to Watched", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun removeFromWatchLater(movieId: Int) {
+        viewModel.removeFromWatchlist(movieId)
+        Toast.makeText(this, "Removed from Watch Later", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun removeFromFavorites(movieId: Int) {
+        viewModel.removeFromFavorites(movieId)
+        Toast.makeText(this, "Removed from Favorites", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun removeFromWatched(movieId: Int) {
+        viewModel.removeFromWatched(movieId)
+        Toast.makeText(this, "Removed from Watched", Toast.LENGTH_SHORT).show()
     }
 
     private fun initUi(movieDetails: MovieDetails, addedToWatchLater: Boolean, addedToFavorites: Boolean, addedToWatched: Boolean) =
