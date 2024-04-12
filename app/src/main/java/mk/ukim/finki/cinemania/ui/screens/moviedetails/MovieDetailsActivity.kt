@@ -49,7 +49,12 @@ class MovieDetailsActivity : AppCompatActivity() {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.stateFlow.collect { state ->
                     state?.let {
-                        initUi(it.movieDetails)
+                        initUi(
+                            it.movieDetails,
+                            it.isAddedToWatchLater,
+                            it.isAddedToFavorites,
+                            it.isAddedToWatched
+                        )
                     }
                 }
             }
@@ -74,7 +79,7 @@ class MovieDetailsActivity : AppCompatActivity() {
         toolbar.setNavigationOnClickListener { finish() }
         val movieId = intent.getIntExtra(MOVIE_ID, -1)
 
-        with(actions){
+        with(actions) {
             watchLaterButton.setOnClickListener {
                 addToWatchLater(movieId)
             }
@@ -104,16 +109,22 @@ class MovieDetailsActivity : AppCompatActivity() {
         Toast.makeText(this, "Added to Watched", Toast.LENGTH_SHORT).show()
     }
 
-    private fun initUi(movieDetails: MovieDetails) = with(binding) {
-        title.text = movieDetails.title
-        toolbar.title = movieDetails.title
-        overview.text = movieDetails.overview
-        releaseDate.text = movieDetails.releaseDate
-        rating.text = movieDetails.rating.toString()
-        genres.text = movieDetails.genres.joinToString(", ")
-        spokenLanguages.text = movieDetails.spokenLanguages.joinToString(", ")
-        productionCountries.text = movieDetails.productionCountries.joinToString(", ")
-        duration.text = movieDetails.duration
-        image.load(movieDetails.posterImage)
-    }
+    private fun initUi(movieDetails: MovieDetails, addedToWatchLater: Boolean, addedToFavorites: Boolean, addedToWatched: Boolean) =
+        with(binding) {
+            title.text = movieDetails.title
+            toolbar.title = movieDetails.title
+            overview.text = movieDetails.overview
+            releaseDate.text = movieDetails.releaseDate
+            rating.text = movieDetails.rating.toString()
+            genres.text = movieDetails.genres.joinToString(", ")
+            spokenLanguages.text = movieDetails.spokenLanguages.joinToString(", ")
+            productionCountries.text = movieDetails.productionCountries.joinToString(", ")
+            duration.text = movieDetails.duration
+            image.load(movieDetails.posterImage)
+            with(actions) {
+                favoritesButton.isSelected = addedToFavorites
+                watchLaterButton.isSelected = addedToWatchLater
+                watchedButton.isSelected = addedToWatched
+            }
+        }
 }

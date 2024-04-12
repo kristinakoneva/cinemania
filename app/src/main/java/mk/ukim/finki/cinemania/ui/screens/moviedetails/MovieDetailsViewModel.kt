@@ -25,13 +25,29 @@ class MovieDetailsViewModel @Inject constructor(
     private val _loadingStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val loadingStateFlow: StateFlow<Boolean> = _loadingStateFlow
 
+    private var watchlistIds = emptyList<String>()
+    private var favoritesIds = emptyList<String>()
+    private var watchedIds = emptyList<String>()
+
     fun initMovieDetails(movieId: Int) {
         if (_stateFlow.value != null) return
 
         viewModelScope.launch(Dispatchers.IO) {
             _loadingStateFlow.value = true
             val movieDetails = movieRepository.fetchMovieDetailsById(movieId)
-            _stateFlow.value = MovieDetailsState(movieDetails)
+            val user = authenticationRepository.getCurrentUser()
+            if (user != null) {
+                watchlistIds = userRepository.getWatchlist(user.uid).map { it.toString() }
+                favoritesIds = userRepository.getFavorites(user.uid).map { it.toString() }
+                watchedIds = userRepository.getWatchedMovies(user.uid).map { it.toString() }
+            }
+
+            _stateFlow.value = MovieDetailsState(
+                movieDetails = movieDetails,
+                isAddedToWatchLater = watchlistIds.contains(movieDetails.id.toString()),
+                isAddedToFavorites = favoritesIds.contains(movieDetails.id.toString()),
+                isAddedToWatched = watchedIds.contains(movieDetails.id.toString())
+            )
             _loadingStateFlow.value = false
         }
     }
