@@ -6,8 +6,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import mk.ukim.finki.cinemania.domain.authentication.AuthenticationRepository
 import mk.ukim.finki.cinemania.domain.authentication.AuthenticationRepositoryImpl
-import mk.ukim.finki.cinemania.domain.firestore.FirestoreRepository
-import mk.ukim.finki.cinemania.domain.firestore.FirestoreRepositoryImpl
+import mk.ukim.finki.cinemania.domain.user.UserRepository
+import mk.ukim.finki.cinemania.domain.user.UserRepositoryImpl
 import mk.ukim.finki.cinemania.domain.movie.MovieRepository
 import mk.ukim.finki.cinemania.domain.movie.MovieRepositoryImpl
 
@@ -22,5 +22,5 @@ interface RepositoriesModule {
     fun bindAuthenticationRepository(authenticationRepositoryImpl: AuthenticationRepositoryImpl): AuthenticationRepository
 
     @Binds
-    fun bindFirestoreRepository(firestoreRepositoryImpl: FirestoreRepositoryImpl): FirestoreRepository
+    fun bindUserRepository(userRepositoryImpl: UserRepositoryImpl): UserRepository
 }

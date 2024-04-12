@@ -58,6 +58,15 @@ class FirestoreSourceImpl @Inject constructor(private val db: FirebaseFirestore)
             }
     }
 
+    override suspend fun removeFromFavorites(movieId: Int, userId: String) {
+        db.collection("users").document(userId)
+            .update("favorites", FieldValue.arrayRemove(movieId))
+            .await()
+            .also {
+                Log.d("Firestore", "Removed movie $movieId from favorites for user $userId")
+            }
+    }
+
     override suspend fun addToWatched(movieId: Int, userId: String) {
         db.collection("users").document(userId)
             .update("watched", FieldValue.arrayUnion(movieId))
@@ -67,12 +76,30 @@ class FirestoreSourceImpl @Inject constructor(private val db: FirebaseFirestore)
             }
     }
 
+    override suspend fun removeFromWatched(movieId: Int, userId: String) {
+        db.collection("users").document(userId)
+            .update("watched", FieldValue.arrayRemove(movieId))
+            .await()
+            .also {
+                Log.d("Firestore", "Removed movie $movieId from watched list for user $userId")
+            }
+    }
+
     override suspend fun addToWatchlist(movieId: Int, userId: String) {
         db.collection("users").document(userId)
             .update("watchlist", FieldValue.arrayUnion(movieId))
             .await()
             .also {
                 Log.d("Firestore", "Added movie $movieId to favorites for user $userId")
+            }
+    }
+
+    override suspend fun removeFromWatchlist(movieId: Int, userId: String) {
+        db.collection("users").document(userId)
+            .update("watchlist", FieldValue.arrayRemove(movieId))
+            .await()
+            .also {
+                Log.d("Firestore", "Removed movie $movieId from watchlist for user $userId")
             }
     }
 

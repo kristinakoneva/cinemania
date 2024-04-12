@@ -9,13 +9,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import mk.ukim.finki.cinemania.domain.authentication.AuthenticationRepository
-import mk.ukim.finki.cinemania.domain.firestore.FirestoreRepository
+import mk.ukim.finki.cinemania.domain.user.UserRepository
 import mk.ukim.finki.cinemania.domain.movie.MovieRepository
 
 @HiltViewModel
 class MovieDetailsViewModel @Inject constructor(
     private val movieRepository: MovieRepository,
-    private val firestoreRepository: FirestoreRepository,
+    private val userRepository: UserRepository,
     private val authenticationRepository: AuthenticationRepository
 ) : ViewModel() {
 
@@ -40,7 +40,7 @@ class MovieDetailsViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             val currentUser = authenticationRepository.getCurrentUser()
             if (currentUser != null) {
-                firestoreRepository.addToFavorites(movieId, currentUser.uid)
+                userRepository.addToFavorites(movieId, currentUser.uid)
             }
         }
     }
@@ -49,7 +49,7 @@ class MovieDetailsViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             val currentUser = authenticationRepository.getCurrentUser()
             if (currentUser != null) {
-                firestoreRepository.addToWatched(movieId, currentUser.uid)
+                userRepository.addToWatched(movieId, currentUser.uid)
             }
         }
     }
@@ -58,9 +58,8 @@ class MovieDetailsViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             val currentUser = authenticationRepository.getCurrentUser()
             if (currentUser != null) {
-                firestoreRepository.addToWatchlist(movieId, currentUser.uid)
+                userRepository.addToWatchlist(movieId, currentUser.uid)
             }
         }
     }
-
 }

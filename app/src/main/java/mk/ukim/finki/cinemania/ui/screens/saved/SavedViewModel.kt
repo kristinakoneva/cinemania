@@ -9,13 +9,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import mk.ukim.finki.cinemania.domain.authentication.AuthenticationRepository
-import mk.ukim.finki.cinemania.domain.firestore.FirestoreRepository
+import mk.ukim.finki.cinemania.domain.user.UserRepository
 import mk.ukim.finki.cinemania.domain.movie.MovieRepository
 
 @HiltViewModel
 class SavedViewModel @Inject constructor(
     private val movieRepository: MovieRepository,
-    private val firestoreRepository: FirestoreRepository,
+    private val userRepository: UserRepository,
     private val authRepository: AuthenticationRepository
 ) : ViewModel() {
 
@@ -29,39 +29,39 @@ class SavedViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             _loadingStateFlow.value = true
 
-            val firestoreWatchlistMovieIds = authRepository.getCurrentUser()?.uid?.let {
-                firestoreRepository.getWatchlist(
+            val watchlistMovieIds = authRepository.getCurrentUser()?.uid?.let {
+                userRepository.getWatchlist(
                     it
                 )
             }
 
-            val firestoreFavoritesMovieIds = authRepository.getCurrentUser()?.uid?.let {
-                firestoreRepository.getFavorites(
+            val favoritesMovieIds = authRepository.getCurrentUser()?.uid?.let {
+                userRepository.getFavorites(
                     it
                 )
             }
 
-            val firestoreWatchedMovieIds = authRepository.getCurrentUser()?.uid?.let {
-                firestoreRepository.getWatchedMovies(
+            val watchedMovieIds = authRepository.getCurrentUser()?.uid?.let {
+                userRepository.getWatchedMovies(
                     it
                 )
             }
 
-            val firestoreWatchlistMovieList = firestoreWatchlistMovieIds?.map { movieId ->
+            val watchlistMovieList = watchlistMovieIds?.map { movieId ->
                 movieRepository.fetchMovieById(movieId)
             }
 
-            val firestoreFavoritesMovieList = firestoreFavoritesMovieIds?.map { movieId ->
+            val favoritesMovieList = favoritesMovieIds?.map { movieId ->
                 movieRepository.fetchMovieById(movieId)
             }
 
-            val firestoreWatchedMovieList = firestoreWatchedMovieIds?.map { movieId ->
+            val watchedMovieList = watchedMovieIds?.map { movieId ->
                 movieRepository.fetchMovieById(movieId)
             }
 
-            _stateFlow.value = SavedState(firestoreWatchlistMovieList ?: emptyList(),
-                firestoreFavoritesMovieList ?: emptyList(),
-                firestoreWatchedMovieList ?: emptyList())
+            _stateFlow.value = SavedState(watchlistMovieList ?: emptyList(),
+                favoritesMovieList ?: emptyList(),
+                watchedMovieList ?: emptyList())
             _loadingStateFlow.value = false
         }
     }

@@ -9,11 +9,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import mk.ukim.finki.cinemania.domain.authentication.AuthenticationRepository
-import mk.ukim.finki.cinemania.domain.firestore.FirestoreRepository
+import mk.ukim.finki.cinemania.domain.user.UserRepository
 
 @HiltViewModel
 class AuthViewModel @Inject constructor(private val authenticationRepository: AuthenticationRepository,
-                                        private val firestoreRepository: FirestoreRepository) : ViewModel() {
+                                        private val firestoreRepository: UserRepository) : ViewModel() {
 
     private val _stateFlow: MutableStateFlow<AuthState?> = MutableStateFlow(null)
     val stateFlow: StateFlow<AuthState?> = _stateFlow

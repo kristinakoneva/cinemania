@@ -12,9 +12,15 @@ interface FirestoreSource {
 
     suspend fun addToFavorites(movieId: Int, userId: String)
 
+    suspend fun removeFromFavorites(movieId: Int, userId: String)
+
     suspend fun addToWatched(movieId: Int, userId: String)
 
+    suspend fun removeFromWatched(movieId: Int, userId: String)
+
     suspend fun addToWatchlist(movieId: Int, userId: String)
+
+    suspend fun removeFromWatchlist(movieId: Int, userId: String)
 
     suspend fun createUserDocument(userId: String)
 

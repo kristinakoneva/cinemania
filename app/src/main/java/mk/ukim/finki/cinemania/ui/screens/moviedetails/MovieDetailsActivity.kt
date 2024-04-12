@@ -8,7 +8,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.repeatOnLifecycle
 import coil.load
-import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import mk.ukim.finki.cinemania.R
@@ -33,10 +32,6 @@ class MovieDetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
-        val addToWatchLaterButton = findViewById<MaterialButton>(R.id.addToWatchLaterButton)
-        val addToFavoritesButton = findViewById<MaterialButton>(R.id.addToFavoritesButton)
-        val addToWatchedButton = findViewById<MaterialButton>(R.id.addToWatchedButton)
 
         val movieId = intent.getIntExtra(MOVIE_ID, -1)
         if (movieId == -1) {
