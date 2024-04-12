@@ -27,6 +27,10 @@ class SavedViewModel @Inject constructor(
     val loadingStateFlow: StateFlow<Boolean> = _loadingStateFlow
 
     init {
+        refreshState()
+    }
+
+    fun refreshState() {
         viewModelScope.launch(Dispatchers.IO) {
             _loadingStateFlow.value = true
 
