@@ -10,6 +10,9 @@ import mk.ukim.finki.cinemania.domain.models.Movie
 class MovieAdapter(
     private var items: List<MovieItem>,
     private var areActionsVisible: Boolean = true,
+    private val onWatchLaterButtonClick: (Int, Boolean) -> Unit = { _, _ -> },
+    private val onFavoriteButtonClick: (Int, Boolean) -> Unit = { _, _ -> },
+    private val onWatchedButtonClick: (Int, Boolean) -> Unit = { _, _ -> },
     private val onItemClickCallback: (Movie) -> Unit
 ) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
@@ -48,8 +51,17 @@ class MovieAdapter(
                     marginParams.bottomMargin = 30
                     with(actions) {
                         watchLaterButton.isSelected = item.isAddedToWatchLater ?: false
+                        watchLaterButton.setOnClickListener {
+                            onWatchLaterButtonClick.invoke(item.movie.id, it.isSelected)
+                        }
                         favoritesButton.isSelected = item.isAddedToFavorites ?: false
+                        favoritesButton.setOnClickListener {
+                            onFavoriteButtonClick.invoke(item.movie.id, it.isSelected)
+                        }
                         watchedButton.isSelected = item.isAddedToWatched ?: false
+                        watchedButton.setOnClickListener {
+                            onWatchedButtonClick.invoke(item.movie.id, it.isSelected)
+                        }
                     }
                 }
                 marginParams.marginStart = 8

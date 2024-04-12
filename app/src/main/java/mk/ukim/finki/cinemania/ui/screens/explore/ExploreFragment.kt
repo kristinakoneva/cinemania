@@ -39,7 +39,10 @@ class ExploreFragment : Fragment(R.layout.fragment_explore) {
     }
 
     private fun initAdapter() = with(binding) {
-        adapter = MovieAdapter(items = emptyList()) { movie ->
+        adapter = MovieAdapter(items = emptyList(),
+            onWatchedButtonClick = { movieId, isSelected -> viewModel.onWatchedActionSelected(movieId, isSelected) },
+            onFavoriteButtonClick = { movieId, isSelected -> viewModel.onFavoriteActionSelected(movieId, isSelected) },
+            onWatchLaterButtonClick = { movieId, isSelected -> viewModel.onWatchLaterActionSelected(movieId, isSelected) }) { movie ->
             val intent = Intent(requireContext(), MovieDetailsActivity::class.java)
             intent.putExtra(MovieDetailsActivity.MOVIE_ID, movie.id)
             startActivity(intent)
@@ -71,9 +74,9 @@ class ExploreFragment : Fragment(R.layout.fragment_explore) {
         }
     }
 
-    private fun initListeners() {
-        binding.showPopularMoviesButton.setOnClickListener {
-            binding.searchView.setQuery("", false)
+    private fun initListeners() = with(binding) {
+        showPopularMoviesButton.setOnClickListener {
+            searchView.setQuery("", false)
             viewModel.showPopularMovies()
         }
     }
