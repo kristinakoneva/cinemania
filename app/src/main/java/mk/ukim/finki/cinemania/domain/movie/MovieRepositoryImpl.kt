@@ -51,4 +51,15 @@ class MovieRepositoryImpl @Inject constructor(
             )
         }
     }
+
+    override suspend fun fetchMovieById(movieId: Int): Movie {
+        return movieApiSource.fetchMovieDetailsById(movieId).let { movieDetailsResponse ->
+            Movie(
+                id = movieDetailsResponse.id,
+                title = movieDetailsResponse.title,
+                posterImage = Utils.createImageUrl(movieDetailsResponse.posterPath)
+            )
+        }
+    }
+
 }

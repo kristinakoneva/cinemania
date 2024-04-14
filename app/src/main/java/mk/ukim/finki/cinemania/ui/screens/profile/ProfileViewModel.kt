@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import mk.ukim.finki.cinemania.domain.authentication.AuthenticationRepository
 import mk.ukim.finki.cinemania.domain.movie.MovieRepository
+import mk.ukim.finki.cinemania.ui.screens.adapters.MovieItem
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
@@ -32,9 +33,9 @@ class ProfileViewModel @Inject constructor(
             _stateFlow.value = ProfileState(
                 name = name,
                 watchedMovieRecommendationsName = "Inception",
-                watchedMovieRecommendations = movieList,
+                watchedMovieRecommendations = movieList.map { MovieItem(movie = it) },
                 likedMovieRecommendationsName = "Titanic",
-                likedMovieRecommendations = movieList
+                likedMovieRecommendations = movieList.map { MovieItem(movie = it) }
             )
             _loadingStateFlow.value = false
         }

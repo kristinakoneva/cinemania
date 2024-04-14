@@ -39,6 +39,11 @@ class SavedFragment : Fragment(R.layout.fragment_saved) {
         collectStateFlow()
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.refreshState()
+    }
+
     private fun initAdapters() = with(binding) {
         watchLaterAdapter = MovieAdapter(items = emptyList(), areActionsVisible = false) { movie ->
             navigateToMovieDetails(movie.id)
@@ -102,4 +107,3 @@ class SavedFragment : Fragment(R.layout.fragment_saved) {
         startActivity(intent)
     }
 }
-

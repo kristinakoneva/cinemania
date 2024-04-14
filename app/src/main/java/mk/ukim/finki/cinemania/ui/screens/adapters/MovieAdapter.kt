@@ -8,8 +8,11 @@ import mk.ukim.finki.cinemania.databinding.ItemMovieBinding
 import mk.ukim.finki.cinemania.domain.models.Movie
 
 class MovieAdapter(
-    private var items: List<Movie>,
+    private var items: List<MovieItem>,
     private var areActionsVisible: Boolean = true,
+    private val onWatchLaterButtonClick: (Int, Boolean) -> Unit = { _, _ -> },
+    private val onFavoriteButtonClick: (Int, Boolean) -> Unit = { _, _ -> },
+    private val onWatchedButtonClick: (Int, Boolean) -> Unit = { _, _ -> },
     private val onItemClickCallback: (Movie) -> Unit
 ) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
@@ -26,13 +29,13 @@ class MovieAdapter(
         return items.count()
     }
 
-    fun submitList(movies: List<Movie>) {
+    fun submitList(movies: List<MovieItem>) {
         items = movies
         notifyDataSetChanged()
     }
 
     inner class MovieViewHolder(private val binding: ItemMovieBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Movie) {
+        fun bind(item: MovieItem) {
             with(binding) {
                 val layoutParams = ViewGroup.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
@@ -40,20 +43,34 @@ class MovieAdapter(
                 )
                 var marginParams = ViewGroup.MarginLayoutParams(layoutParams)
                 if (!areActionsVisible) {
-                    groupActions.visibility = ViewGroup.GONE
+                    actions.root.visibility = ViewGroup.GONE
                     layoutParams.width = 500
                     marginParams = ViewGroup.MarginLayoutParams(layoutParams)
                     marginParams.bottomMargin = 0
                 } else {
                     marginParams.bottomMargin = 30
+                    with(actions) {
+                        watchLaterButton.isSelected = item.isAddedToWatchLater ?: false
+                        watchLaterButton.setOnClickListener {
+                            onWatchLaterButtonClick.invoke(item.movie.id, it.isSelected)
+                        }
+                        favoritesButton.isSelected = item.isAddedToFavorites ?: false
+                        favoritesButton.setOnClickListener {
+                            onFavoriteButtonClick.invoke(item.movie.id, it.isSelected)
+                        }
+                        watchedButton.isSelected = item.isAddedToWatched ?: false
+                        watchedButton.setOnClickListener {
+                            onWatchedButtonClick.invoke(item.movie.id, it.isSelected)
+                        }
+                    }
                 }
                 marginParams.marginStart = 8
                 marginParams.marginEnd = 8
                 root.layoutParams = marginParams
-                movieTitle.text = item.title
-                movieImage.load(item.posterImage)
+                movieTitle.text = item.movie.title
+                movieImage.load(item.movie.posterImage)
                 root.setOnClickListener {
-                    onItemClickCallback(item)
+                    onItemClickCallback(item.movie)
                 }
             }
         }

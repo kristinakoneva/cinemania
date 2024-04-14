@@ -1,11 +1,11 @@
 package mk.ukim.finki.cinemania.ui.screens.profile
 
-import mk.ukim.finki.cinemania.domain.models.Movie
+import mk.ukim.finki.cinemania.ui.screens.adapters.MovieItem
 
 data class ProfileState(
     val name: String,
     val watchedMovieRecommendationsName: String,
-    val watchedMovieRecommendations: List<Movie>,
+    val watchedMovieRecommendations: List<MovieItem>,
     val likedMovieRecommendationsName: String,
-    val likedMovieRecommendations: List<Movie>,
+    val likedMovieRecommendations: List<MovieItem>,
 )
