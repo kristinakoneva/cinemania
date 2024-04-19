@@ -12,4 +12,6 @@ interface MoviesApiSource {
     suspend fun fetchMovieDetailsById(movieId: Int): MovieDetailsResource
 
     suspend fun fetchMovieRecommendationsForMovieId(movieId: Int): MovieListResponse
+
+    suspend fun fetchTopRatedMovies(): MovieListResponse
 }

@@ -71,4 +71,14 @@ class MovieRepositoryImpl @Inject constructor(
             )
         }
     }
+
+    override suspend fun fetchTopRatedMovies(): List<Movie> {
+        return movieApiSource.fetchTopRatedMovies().results.map { movieResource ->
+            Movie(
+                id = movieResource.id,
+                title = movieResource.title,
+                posterImage = Utils.createImageUrl(movieResource.posterPath)
+            )
+        }
+    }
 }

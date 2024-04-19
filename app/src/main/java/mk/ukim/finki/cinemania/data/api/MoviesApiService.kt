@@ -18,4 +18,7 @@ interface MoviesApiService {
 
     @GET("movie/{movie_id}/recommendations")
     suspend fun fetchMovieRecommendationsForMovieId(@Path("movie_id") movieId: Int): MovieListResponse
+
+    @GET("movie/top_rated")
+    suspend fun fetchTopRatedMovies(): MovieListResponse
 }

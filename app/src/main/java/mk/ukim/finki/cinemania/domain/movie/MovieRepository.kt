@@ -14,4 +14,6 @@ interface MovieRepository {
     suspend fun fetchMovieById(movieId: Int): Movie
 
     suspend fun fetchMovieRecommendationsForMovieId(movieId: Int): List<Movie>
+
+    suspend fun fetchTopRatedMovies(): List<Movie>
 }
