@@ -84,14 +84,27 @@ class ProfileViewModel @Inject constructor(
             watchlistIds = userRepository.getWatchlist(userId).map { it.toString() }
         }
 
+        var randomLikedMovieId: String? = null
         if (favoritesIds.isNotEmpty()) {
-            val randomLikedMovieId = favoritesIds.random()
+            randomLikedMovieId = favoritesIds.random()
             likedMovieRecommendations =
                 movieRepository.fetchMovieRecommendationsForMovieId(randomLikedMovieId.toInt()).map { MovieItem(movie = it) }
             likedMovieRecommendationsName = movieRepository.fetchMovieById(randomLikedMovieId.toInt()).title
         }
+
         if (watchedIds.isNotEmpty()) {
-            val randomWatchedMovieId = watchedIds.random()
+            var randomWatchedMovieId = watchedIds.random()
+
+            // Avoiding recommendations for the same movie
+            if (randomWatchedMovieId == randomLikedMovieId) {
+                if (watchedIds.size == 1) {
+                    watchedMovieRecommendations = emptyList()
+                    watchedMovieRecommendationsName = null
+                    return
+                }
+                randomWatchedMovieId = watchedIds.filter { it != randomLikedMovieId }.random()
+            }
+
             watchedMovieRecommendations =
                 movieRepository.fetchMovieRecommendationsForMovieId(randomWatchedMovieId.toInt()).map { MovieItem(movie = it) }
             watchedMovieRecommendationsName = movieRepository.fetchMovieById(randomWatchedMovieId.toInt()).title
