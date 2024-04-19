@@ -8,4 +8,5 @@ data class ProfileState(
     val watchedMovieRecommendations: List<MovieItem>,
     val likedMovieRecommendationsName: String?,
     val likedMovieRecommendations: List<MovieItem>,
+    val topRatedMovies: List<MovieItem>,
 )

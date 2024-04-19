@@ -44,6 +44,7 @@ class ProfileViewModel @Inject constructor(
             val name = authenticationRepository.getCurrentUser()?.displayName.orEmpty()
             user = authenticationRepository.getCurrentUser()
             setRecommendations()
+            val topRatedMovies = movieRepository.fetchTopRatedMovies().map { MovieItem(movie = it) }
 
             _stateFlow.value = ProfileState(
                 name = name,
@@ -51,6 +52,7 @@ class ProfileViewModel @Inject constructor(
                 watchedMovieRecommendations = watchedMovieRecommendations,
                 likedMovieRecommendationsName = likedMovieRecommendationsName,
                 likedMovieRecommendations = likedMovieRecommendations,
+                topRatedMovies = topRatedMovies
             )
             _loadingStateFlow.value = false
         }
