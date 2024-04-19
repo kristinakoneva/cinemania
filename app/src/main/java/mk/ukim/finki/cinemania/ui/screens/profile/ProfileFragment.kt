@@ -71,7 +71,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                     state?.let {
                         with(binding) {
                             name.text = state.name
-                            if (state.watchedMovieRecommendations.isNotEmpty()) {
+                            if (state.watchedMovieRecommendations.isNotEmpty() && !state.watchedMovieRecommendationsName.isNullOrEmpty()) {
                                 watchedMovieRecommendationsAdapter.submitList(state.watchedMovieRecommendations)
                                 watchedMovieRecommendationsRecyclerView.visibility = View.VISIBLE
                                 becauseYouWatchedTitle.visibility = View.VISIBLE
@@ -80,7 +80,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                                 watchedMovieRecommendationsRecyclerView.visibility = View.GONE
                                 becauseYouWatchedTitle.visibility = View.GONE
                             }
-                            if (state.likedMovieRecommendations.isNotEmpty()) {
+                            if (state.likedMovieRecommendations.isNotEmpty() && !state.likedMovieRecommendationsName.isNullOrEmpty()) {
                                 likedMovieRecommendationsAdapter.submitList(state.likedMovieRecommendations)
                                 likedMovieRecommendationsRecyclerView.visibility = View.VISIBLE
                                 becauseYouLikedTitle.visibility = View.VISIBLE
