@@ -95,4 +95,18 @@ class ProfileViewModel @Inject constructor(
             watchedMovieRecommendationsName = movieRepository.fetchMovieById(randomWatchedMovieId.toInt()).title
         }
     }
+
+    fun refreshRecommendations() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _loadingStateFlow.value = true
+            setRecommendations()
+            _stateFlow.value = _stateFlow.value?.copy(
+                watchedMovieRecommendationsName = watchedMovieRecommendationsName,
+                watchedMovieRecommendations = watchedMovieRecommendations,
+                likedMovieRecommendationsName = likedMovieRecommendationsName,
+                likedMovieRecommendations = likedMovieRecommendations,
+            )
+            _loadingStateFlow.value = false
+        }
+    }
 }

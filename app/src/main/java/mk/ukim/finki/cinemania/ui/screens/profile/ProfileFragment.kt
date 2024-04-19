@@ -42,6 +42,11 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         collectStateFlow()
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.refreshRecommendations()
+    }
+
     private fun initAdapters() = with(binding) {
         watchedMovieRecommendationsAdapter = MovieAdapter(items = emptyList(), areActionsVisible = false) { movie ->
             navigateToMovieDetails(movie.id)
