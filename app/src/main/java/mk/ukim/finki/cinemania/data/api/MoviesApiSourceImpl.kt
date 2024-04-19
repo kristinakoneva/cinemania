@@ -13,4 +13,7 @@ class MoviesApiSourceImpl @Inject constructor(
     override suspend fun searchMovies(query: String): MovieListResponse = apiService.searchMovies(query)
 
     override suspend fun fetchMovieDetailsById(movieId: Int): MovieDetailsResource = apiService.fetchMovieDetailsById(movieId)
+
+    override suspend fun fetchMovieRecommendationsForMovieId(movieId: Int): MovieListResponse =
+        apiService.fetchMovieRecommendationsForMovieId(movieId)
 }
