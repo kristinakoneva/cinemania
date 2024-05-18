@@ -15,13 +15,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="24dp"
+            android:fontFamily="@font/open_sans_bold"
             android:text="@string/login"
             android:textColor="@color/design_default_color_primary_dark"
             android:textSize="32sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/nameTitle"
@@ -134,27 +135,26 @@
             android:id="@+id/descriptionText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="95dp"
             android:layout_marginTop="16dp"
-            android:layout_marginStart="24dp"
+            android:ellipsize="end"
+            android:maxLines="2"
             android:text="@string/description_no_account"
             android:textAlignment="textEnd"
-            android:maxLines="2"
-            android:ellipsize="end"
             app:layout_constraintEnd_toStartOf="@id/secondaryActionButton"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/secondaryActionButton"/>
+            app:layout_constraintTop_toTopOf="@+id/secondaryActionButton" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/secondaryActionButton"
             style="@style/Widget.Material3.Button.IconButton.Outlined"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
             android:text="@string/register"
             app:layout_constraintStart_toEndOf="@id/descriptionText"
-            app:layout_constraintTop_toBottomOf="@+id/actionButton"/>
+            app:layout_constraintTop_toBottomOf="@+id/actionButton" />
 
         <androidx.constraintlayout.widget.Group
             android:id="@+id/groupRegister"
