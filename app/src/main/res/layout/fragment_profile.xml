@@ -117,19 +117,47 @@
             app:layout_constraintTop_toBottomOf="@id/divider" />
 
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/becauseYouLikedTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginHorizontal="24dp"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/design_default_color_primary"
+            app:fontFamily="@font/open_sans_italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recommendationsTitle"
+            tools:text="@string/because_you_liked"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/likedMovieRecommendationsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/becauseYouLikedTitle"
+            tools:listitem="@layout/item_movie"/>
+
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/becauseYouWatchedTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="24dp"
             android:layout_marginTop="32dp"
-            android:text="@string/because_you_watched"
             android:textColor="@color/design_default_color_primary"
             android:textSize="20sp"
             android:textStyle="bold"
             app:fontFamily="@font/open_sans_italic"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/recommendationsTitle" />
+            app:layout_constraintTop_toBottomOf="@id/likedMovieRecommendationsRecyclerView"
+            tools:text="@string/because_you_watched"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/watchedMovieRecommendationsRecyclerView"
@@ -145,22 +173,22 @@
             tools:listitem="@layout/item_movie"/>
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/becauseYouLikedTitle"
+            android:id="@+id/topRatedMoviesTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="24dp"
             android:layout_marginTop="32dp"
-            android:text="@string/because_you_liked"
-            android:textColor="@color/design_default_color_primary"
             android:textSize="20sp"
-            android:textStyle="bold"
             app:fontFamily="@font/open_sans_italic"
+            android:textStyle="bold"
+            android:textColor="@color/design_default_color_primary"
+            android:text="@string/top_rated_movies"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/watchedMovieRecommendationsRecyclerView" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/likedMovieRecommendationsRecyclerView"
+            android:id="@+id/topRatedMoviesRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -169,7 +197,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/becauseYouLikedTitle"
+            app:layout_constraintTop_toBottomOf="@id/topRatedMoviesTitle"
             tools:listitem="@layout/item_movie"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

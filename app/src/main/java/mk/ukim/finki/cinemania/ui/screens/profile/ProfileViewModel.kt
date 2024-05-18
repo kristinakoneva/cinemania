@@ -9,13 +9,16 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import mk.ukim.finki.cinemania.domain.authentication.AuthenticationRepository
+import mk.ukim.finki.cinemania.domain.models.User
 import mk.ukim.finki.cinemania.domain.movie.MovieRepository
+import mk.ukim.finki.cinemania.domain.user.UserRepository
 import mk.ukim.finki.cinemania.ui.screens.adapters.MovieItem
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
     private val authenticationRepository: AuthenticationRepository,
-    private val movieRepository: MovieRepository
+    private val movieRepository: MovieRepository,
+    private val userRepository: UserRepository
 ) : ViewModel() {
 
     private val _stateFlow: MutableStateFlow<ProfileState?> = MutableStateFlow(null)
@@ -24,18 +27,32 @@ class ProfileViewModel @Inject constructor(
     private val _loadingStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val loadingStateFlow: StateFlow<Boolean> = _loadingStateFlow
 
+    private var watchlistIds = emptyList<String>()
+    private var favoritesIds = emptyList<String>()
+    private var watchedIds = emptyList<String>()
+
+    private var user: User? = null
+
+    private var likedMovieRecommendationsName: String? = null
+    private var watchedMovieRecommendations = emptyList<MovieItem>()
+    private var watchedMovieRecommendationsName: String? = null
+    private var likedMovieRecommendations = emptyList<MovieItem>()
+
     init {
         viewModelScope.launch(Dispatchers.IO) {
             _loadingStateFlow.value = true
             val name = authenticationRepository.getCurrentUser()?.displayName.orEmpty()
-            // TODO: Implement logic for fetching actual recommendations. Displaying the popular movies for now.
-            val movieList = movieRepository.fetchPopularMovieList()
+            user = authenticationRepository.getCurrentUser()
+            setRecommendations()
+            val topRatedMovies = movieRepository.fetchTopRatedMovies().map { MovieItem(movie = it) }
+
             _stateFlow.value = ProfileState(
                 name = name,
-                watchedMovieRecommendationsName = "Inception",
-                watchedMovieRecommendations = movieList.map { MovieItem(movie = it) },
-                likedMovieRecommendationsName = "Titanic",
-                likedMovieRecommendations = movieList.map { MovieItem(movie = it) }
+                watchedMovieRecommendationsName = watchedMovieRecommendationsName,
+                watchedMovieRecommendations = watchedMovieRecommendations,
+                likedMovieRecommendationsName = likedMovieRecommendationsName,
+                likedMovieRecommendations = likedMovieRecommendations,
+                topRatedMovies = topRatedMovies
             )
             _loadingStateFlow.value = false
         }
@@ -52,6 +69,58 @@ class ProfileViewModel @Inject constructor(
             _loadingStateFlow.value = true
             authenticationRepository.updateUserDisplayName(newName)
             _stateFlow.value = _stateFlow.value?.copy(name = newName)
+            _loadingStateFlow.value = false
+        }
+    }
+
+    private suspend fun setRecommendations() {
+        likedMovieRecommendationsName = null
+        watchedMovieRecommendationsName = null
+
+        val userId = user?.uid
+        if (userId != null) {
+            favoritesIds = userRepository.getFavorites(userId).map { it.toString() }
+            watchedIds = userRepository.getWatchedMovies(userId).map { it.toString() }
+            watchlistIds = userRepository.getWatchlist(userId).map { it.toString() }
+        }
+
+        var randomLikedMovieId: String? = null
+        if (favoritesIds.isNotEmpty()) {
+            randomLikedMovieId = favoritesIds.random()
+            likedMovieRecommendations =
+                movieRepository.fetchMovieRecommendationsForMovieId(randomLikedMovieId.toInt()).map { MovieItem(movie = it) }
+            likedMovieRecommendationsName = movieRepository.fetchMovieById(randomLikedMovieId.toInt()).title
+        }
+
+        if (watchedIds.isNotEmpty()) {
+            var randomWatchedMovieId = watchedIds.random()
+
+            // Avoiding recommendations for the same movie
+            if (randomWatchedMovieId == randomLikedMovieId) {
+                if (watchedIds.size == 1) {
+                    watchedMovieRecommendations = emptyList()
+                    watchedMovieRecommendationsName = null
+                    return
+                }
+                randomWatchedMovieId = watchedIds.filter { it != randomLikedMovieId }.random()
+            }
+
+            watchedMovieRecommendations =
+                movieRepository.fetchMovieRecommendationsForMovieId(randomWatchedMovieId.toInt()).map { MovieItem(movie = it) }
+            watchedMovieRecommendationsName = movieRepository.fetchMovieById(randomWatchedMovieId.toInt()).title
+        }
+    }
+
+    fun refreshRecommendations() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _loadingStateFlow.value = true
+            setRecommendations()
+            _stateFlow.value = _stateFlow.value?.copy(
+                watchedMovieRecommendationsName = watchedMovieRecommendationsName,
+                watchedMovieRecommendations = watchedMovieRecommendations,
+                likedMovieRecommendationsName = likedMovieRecommendationsName,
+                likedMovieRecommendations = likedMovieRecommendations,
+            )
             _loadingStateFlow.value = false
         }
     }

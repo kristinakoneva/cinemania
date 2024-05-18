@@ -35,11 +35,18 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     private lateinit var likedMovieRecommendationsAdapter: MovieAdapter
 
+    private lateinit var topRatedMoviesAdapter: MovieAdapter
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initAdapters()
         super.onViewCreated(view, savedInstanceState)
         initListeners()
         collectStateFlow()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.refreshRecommendations()
     }
 
     private fun initAdapters() = with(binding) {
@@ -52,6 +59,11 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             navigateToMovieDetails(movie.id)
         }
         likedMovieRecommendationsRecyclerView.adapter = likedMovieRecommendationsAdapter
+
+        topRatedMoviesAdapter = MovieAdapter(items = emptyList(), areActionsVisible = false) { movie ->
+            navigateToMovieDetails(movie.id)
+        }
+        topRatedMoviesRecyclerView.adapter = topRatedMoviesAdapter
     }
 
     private fun initListeners() = with(binding) {
@@ -71,7 +83,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                     state?.let {
                         with(binding) {
                             name.text = state.name
-                            if (state.watchedMovieRecommendations.isNotEmpty()) {
+                            if (state.watchedMovieRecommendations.isNotEmpty() && !state.watchedMovieRecommendationsName.isNullOrEmpty()) {
                                 watchedMovieRecommendationsAdapter.submitList(state.watchedMovieRecommendations)
                                 watchedMovieRecommendationsRecyclerView.visibility = View.VISIBLE
                                 becauseYouWatchedTitle.visibility = View.VISIBLE
@@ -80,7 +92,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                                 watchedMovieRecommendationsRecyclerView.visibility = View.GONE
                                 becauseYouWatchedTitle.visibility = View.GONE
                             }
-                            if (state.likedMovieRecommendations.isNotEmpty()) {
+                            if (state.likedMovieRecommendations.isNotEmpty() && !state.likedMovieRecommendationsName.isNullOrEmpty()) {
                                 likedMovieRecommendationsAdapter.submitList(state.likedMovieRecommendations)
                                 likedMovieRecommendationsRecyclerView.visibility = View.VISIBLE
                                 becauseYouLikedTitle.visibility = View.VISIBLE
@@ -89,6 +101,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                                 likedMovieRecommendationsRecyclerView.visibility = View.GONE
                                 becauseYouLikedTitle.visibility = View.GONE
                             }
+                            topRatedMoviesAdapter.submitList(state.topRatedMovies)
                         }
                     }
                 }
