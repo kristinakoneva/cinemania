@@ -25,7 +25,7 @@
     <string name="description_empty_watch_list">You haven\'t added any movies to your watched list yet.</string>
     <string name="description_empty_favorites_list">You haven\'t added any movies to your favorites list yet.</string>
     <string name="description_empty_watch_later_list">You haven\'t added any movies to your watch later list yet.</string>
-    <string name="recommendations">Recommendations</string>
+    <string name="recommendations">Movies we chose for you:</string>
     <string name="because_you_watched">Because you watched %s</string>
     <string name="because_you_liked">Because you liked %s</string>
     <string name="logout">Logout</string>

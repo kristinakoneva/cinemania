@@ -18,13 +18,14 @@
             android:layout_marginHorizontal="24dp"
             android:layout_marginVertical="16dp"
             android:text="@string/my_profile"
-            android:textSize="36sp"
-            android:textStyle="bold"
             android:textAlignment="center"
             android:textColor="@color/design_default_color_primary_dark"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            app:fontFamily="@font/open_sans"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/logoutButton"
@@ -66,15 +67,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:textAlignment="center"
-                android:textStyle="bold"
                 android:maxWidth="300dp"
-                android:textSize="32sp"
+                android:textAlignment="center"
                 android:textColor="@color/design_default_color_primary"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                app:fontFamily="@font/open_sans_bold"
                 app:layout_constraintEnd_toStartOf="@id/editNameButton"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/profileImage"
-                tools:text="Kristina"/>
+                tools:text="Kristina" />
 
             <ImageButton
                 android:id="@+id/editNameButton"
@@ -102,16 +104,17 @@
             android:id="@+id/recommendationsTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
             android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="24dp"
             android:text="@string/recommendations"
-            android:textSize="26sp"
             android:textAlignment="center"
-            android:textStyle="bold"
             android:textColor="@color/design_default_color_primary_dark"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            app:fontFamily="@font/open_sans"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/divider"/>
+            app:layout_constraintTop_toBottomOf="@id/divider" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/becauseYouLikedTitle"
@@ -120,8 +123,9 @@
             android:layout_marginTop="32dp"
             android:layout_marginHorizontal="24dp"
             android:textStyle="bold"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textColor="@color/design_default_color_primary"
+            app:fontFamily="@font/open_sans_italic"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/recommendationsTitle"
@@ -144,11 +148,12 @@
             android:id="@+id/becauseYouWatchedTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
             android:layout_marginHorizontal="24dp"
-            android:textStyle="bold"
-            android:textSize="24sp"
+            android:layout_marginTop="32dp"
             android:textColor="@color/design_default_color_primary"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:fontFamily="@font/open_sans_italic"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/likedMovieRecommendationsRecyclerView"
@@ -171,15 +176,16 @@
             android:id="@+id/topRatedMoviesTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
             android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="32dp"
+            android:textSize="20sp"
+            app:fontFamily="@font/open_sans_italic"
             android:textStyle="bold"
-            android:textSize="24sp"
             android:textColor="@color/design_default_color_primary"
             android:text="@string/top_rated_movies"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/watchedMovieRecommendationsRecyclerView"/>
+            app:layout_constraintTop_toBottomOf="@id/watchedMovieRecommendationsRecyclerView" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/topRatedMoviesRecyclerView"
